@@ -1,7 +1,9 @@
-package io.github.nelsonkhalil;
+package io.github.nelsonkhalil.render;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.nelsonkhalil.Main;
+import io.github.nelsonkhalil.assetmanager.AssetManager;
+import io.github.nelsonkhalil.assetmanager.FileTexture;
 
 public class Background {
     private static final float SPEED = 2;
@@ -10,8 +12,8 @@ public class Background {
     private final float size;
     private float yOffset;
 
-    public Background() {
-        sprite = new Texture("background.png");
+    public Background(AssetManager am) {
+        sprite = am.getTexture(FileTexture.BACKGROUND);
         size = sprite.getWidth();
         yOffset = 0;
     }
@@ -20,11 +22,13 @@ public class Background {
         yOffset += (size * SPEED) * dt;
     }
 
-    public void render(SpriteBatch batch) {
+    public void render(DrawContext context) {
+        if (!context.DRAW_BACKGROUND) return;
+
         int tileSize = (int) size;
         for (int x = -tileSize; x < Main.VIEW_WIDTH + tileSize; x += tileSize) {
             for (int y = -tileSize; y < Main.VIEW_HEIGHT + tileSize; y += tileSize) {
-                batch.draw(sprite, x, y - yOffset % tileSize, tileSize, tileSize);
+                context.batch.draw(sprite, x, y - yOffset % tileSize, tileSize, tileSize);
             }
         }
     }
