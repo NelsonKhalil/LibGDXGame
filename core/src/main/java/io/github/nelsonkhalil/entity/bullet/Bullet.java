@@ -2,7 +2,7 @@ package io.github.nelsonkhalil.entity.bullet;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import io.github.nelsonkhalil.*;
+import io.github.nelsonkhalil.World;
 import io.github.nelsonkhalil.assetmanager.AssetManager;
 import io.github.nelsonkhalil.assetmanager.FileTexture;
 import io.github.nelsonkhalil.entity.Entity;

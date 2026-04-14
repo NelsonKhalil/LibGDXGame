@@ -2,11 +2,12 @@ package io.github.nelsonkhalil.entity.asteroid;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import io.github.nelsonkhalil.*;
+import io.github.nelsonkhalil.Main;
+import io.github.nelsonkhalil.World;
 import io.github.nelsonkhalil.assetmanager.AssetManager;
 import io.github.nelsonkhalil.assetmanager.FileSound;
-import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.Entity;
+import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
 import io.github.nelsonkhalil.entity.collision.Collisions;
 import io.github.nelsonkhalil.entity.player.Player;

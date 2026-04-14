@@ -1,7 +1,7 @@
 package io.github.nelsonkhalil.entity;
 
 import com.badlogic.gdx.math.Vector2;
-import io.github.nelsonkhalil.*;
+import io.github.nelsonkhalil.World;
 import io.github.nelsonkhalil.assetmanager.AssetManager;
 import io.github.nelsonkhalil.entity.asteroid.Asteroid;
 import io.github.nelsonkhalil.entity.asteroid.AsteroidInfo;

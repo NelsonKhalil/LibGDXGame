@@ -2,9 +2,9 @@ package io.github.nelsonkhalil.render.hud;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.assetmanager.AssetManager;
 import io.github.nelsonkhalil.assetmanager.FileTexture;
+import io.github.nelsonkhalil.render.DrawContext;
 
 public class LifeDisplay {
     private final Vector2 position;
