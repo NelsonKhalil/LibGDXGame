@@ -20,7 +20,7 @@ public class EnemyBullet implements Entity {
 
     private final Texture sprite;
     private final Vector2 size;
-    private Vector2 position;
+    private final Vector2 position;
 
     private boolean removeMarker = false;
 

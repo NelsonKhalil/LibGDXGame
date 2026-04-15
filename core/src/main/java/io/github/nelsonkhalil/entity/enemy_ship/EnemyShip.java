@@ -20,7 +20,7 @@ import java.util.Optional;
 
 public class EnemyShip implements Entity {
 
-    private final float SPEED = 2F;
+    private static final float SPEED = 2F;
 
     private final Texture spriteTexture;
     private final Sprite sprite;

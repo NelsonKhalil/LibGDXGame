@@ -19,7 +19,7 @@ public class Bullet implements Entity {
 
     private final Texture sprite;
     private final Vector2 size;
-    private Vector2 position;
+    private final Vector2 position;
 
     private boolean removeMarker = false;
 
@@ -38,6 +38,7 @@ public class Bullet implements Entity {
             for (Entity entity : collisions.getOthers()) {
                 if (entity instanceof Asteroid || entity instanceof EnemyShip) {
                     removeMarker = true;
+                    break;
                 }
             }
         }

@@ -23,16 +23,16 @@ public class EntityLayer {
     private final AssetManager assetManager;
     private final GameState gameState;
 
-    private Optional<Player> player;
+    private Player player;
 
-    private Map<Entity, Collisions> collisionsMap;
+    private final Map<Entity, Collisions> collisionsMap;
     public EntityLayer(AssetManager assetManager, GameState gameState) {
         this.assetManager = assetManager;
         this.gameState = gameState;
         entities = new ArrayList<>();
         bufferedEntities = new Stack<>();
         collisionsMap = new HashMap<>();
-        player = Optional.empty();
+        player = null;
     }
 
     public void clear() {
@@ -81,10 +81,10 @@ public class EntityLayer {
     }
 
     private void precomputePlayer() {
-        player = Optional.empty();
+        player = null;
         for (Entity entity : entities) {
             if (entity instanceof Player playerEntity) {
-                player = Optional.of(playerEntity);
+                player = playerEntity;
                 break;
             }
         }
@@ -120,7 +120,7 @@ public class EntityLayer {
     }
 
     public Optional<Player> getPlayer() {
-        return player;
+        return Optional.of(player);
     }
 
     public Player createPlayer() {

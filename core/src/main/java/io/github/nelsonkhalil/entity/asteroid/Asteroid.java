@@ -20,7 +20,7 @@ public class Asteroid implements Entity {
 
     private final Texture sprite;
     private float size;
-    private Vector2 position;
+    private final Vector2 position;
 
     private int health;
 
