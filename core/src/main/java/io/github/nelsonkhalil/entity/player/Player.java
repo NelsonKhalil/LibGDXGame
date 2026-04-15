@@ -14,11 +14,12 @@ import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.asteroid.Asteroid;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
 import io.github.nelsonkhalil.entity.collision.Collisions;
+import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
 
 public class Player implements Entity {
-    private static final float SPEED = 2;
+    private static final float SPEED = 4;
 
     private final Texture spriteTexture;
     private final Sprite sprite;
@@ -60,8 +61,7 @@ public class Player implements Entity {
             position.add(moveAmount, 0);
         }
 
-        position.x = Math.clamp(position.x, 0, Main.VIEW_WIDTH);
-        position.y = Math.clamp(position.y, 0, Main.VIEW_HEIGHT);
+        Main.clampToView(position);
 
         shootCooldown = Math.max(shootCooldown - dt, 0);
         if (keyPressed(Input.Keys.SPACE) && shootCooldown == 0) {
@@ -69,7 +69,7 @@ public class Player implements Entity {
             bulletPosition.add(0, size / 2 - 20);
             context.createBullet(bulletPosition);
 
-            am.playSound(FileSound.SHOOT);
+            am.playSound(FileSound.PLAYER_SHOOT);
             shootCooldown = 0.5F;
         }
 
@@ -78,8 +78,7 @@ public class Player implements Entity {
         Collisions collisions = context.requestCollisions(this);
         if (collisions.collided()) {
             for (Entity entity : collisions.getOthers()) {
-                if (entity instanceof Asteroid) {
-                    Main.log("PLAYER COLLIDED");
+                if (entity instanceof Asteroid || entity instanceof EnemyBullet) {
                     if (shield == 10) {
                         shield = 0;
                         am.playSound(FileSound.PLAYER_HIT_SHIELD);

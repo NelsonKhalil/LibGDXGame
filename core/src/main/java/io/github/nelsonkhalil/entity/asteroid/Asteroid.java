@@ -2,7 +2,6 @@ package io.github.nelsonkhalil.entity.asteroid;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.World;
 import io.github.nelsonkhalil.assetmanager.AssetManager;
 import io.github.nelsonkhalil.assetmanager.FileSound;
@@ -10,6 +9,7 @@ import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
 import io.github.nelsonkhalil.entity.collision.Collisions;
+import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
 import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
@@ -26,7 +26,7 @@ public class Asteroid implements Entity {
 
     public Asteroid(Vector2 pos, AsteroidInfo info, AssetManager am) {
         this.sprite = am.getTexture(info.fileTexture());
-        this.position = pos;
+        this.position = pos.cpy();
         size = this.sprite.getWidth();
         health = info.size().health;
     }
@@ -38,13 +38,14 @@ public class Asteroid implements Entity {
         Collisions collisions = context.requestCollisions(this);
         if (collisions.collided()) {
             for (Entity entity : collisions.getOthers()) {
-                if (entity instanceof Bullet || entity instanceof Player) {
+                if (entity instanceof Bullet || entity instanceof EnemyBullet || entity instanceof Player) {
                     if (entity instanceof Player) {
-                        Main.log("ASTEROID COLLIDED");
                         health = 0;
                         am.playSound(FileSound.ASTEROID_PLAYER_COLLIDE);
+                        continue;
                     }
                     health = Math.max(0, health - 1);
+                    size *= 0.8F;
                     if (health == 0) {
                         am.playSound(FileSound.ASTEROID_DEATH);
                         gameState.addScore(30);

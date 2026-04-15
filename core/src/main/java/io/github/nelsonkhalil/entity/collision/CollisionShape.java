@@ -17,7 +17,7 @@ public record CollisionShape(float radius, Vector2 offset) {
     }
 
     public boolean isOnScreen(Vector2 thisPos) {
-        Vector2 thisOrigin = thisPos.add(offset);
+        Vector2 thisOrigin = thisPos.cpy().add(offset);
         float half = radius / 2;
 
         if ((thisOrigin.x + half) < 0 || (thisOrigin.x - half) > Main.VIEW_WIDTH)

@@ -1,12 +1,17 @@
 package io.github.nelsonkhalil.assetmanager;
 
 public enum FileSound {
-    SHOOT("shoot.wav", Type.SFX),
-    PLAYER_HIT("player_hit.wav", Type.SFX),
-    PLAYER_HIT_SHIELD("player_hit_shield.wav", Type.SFX),
-    ASTEROID_HIT("asteroid_hit.wav", Type.SFX),
-    ASTEROID_DEATH("asteroid_death.wav", Type.SFX),
-    ASTEROID_PLAYER_COLLIDE("asteroid_player_collide.wav", Type.SFX);
+    PLAYER_SHOOT("player/shoot.wav", Type.SFX),
+    PLAYER_HIT("player/player_hit.wav", Type.SFX),
+    PLAYER_HIT_SHIELD("player/player_hit_shield.wav", Type.SFX),
+
+    ENEMY_SHIP_SHOOT("enemy_ship/enemy_shoot.wav", Type.SFX),
+    ENEMY_SHIP_HIT("enemy_ship/enemy_hit.wav", Type.SFX),
+    ENEMY_SHIP_DEATH("enemy_ship/enemy_death.wav", Type.SFX),
+
+    ASTEROID_HIT("asteroid/asteroid_hit.wav", Type.SFX),
+    ASTEROID_DEATH("asteroid/asteroid_death.wav", Type.SFX),
+    ASTEROID_PLAYER_COLLIDE("asteroid/asteroid_player_collide.wav", Type.SFX);
 
     public final String path;
     public final Type type;

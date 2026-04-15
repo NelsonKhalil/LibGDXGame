@@ -8,9 +8,14 @@ import io.github.nelsonkhalil.entity.asteroid.Asteroid;
 import io.github.nelsonkhalil.entity.asteroid.AsteroidInfo;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.collision.Collisions;
+import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
+import io.github.nelsonkhalil.entity.enemy_ship.EnemyShip;
 import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
+
+import java.util.List;
+import java.util.Optional;
 
 public class World {
     private final EntityLayer entityLayer;
@@ -49,13 +54,27 @@ public class World {
         public Collisions requestCollisions(Entity entity) {
             return entityLayer.getCollisions(entity);
         }
+        public List<Entity> requestEntities() {
+            return entityLayer.getEntities();
+        }
+        public Optional<Player> requestPlayer() {
+            return entityLayer.getPlayer();
+        }
 
         public Bullet createBullet(Vector2 position) {
             return entityLayer.createBullet(position);
         }
 
+        public EnemyBullet createEnemyBullet(Vector2 position) {
+            return entityLayer.createEnemyBullet(position);
+        }
+
         public Asteroid createAsteroid(Vector2 position, AsteroidInfo info) {
             return entityLayer.createAsteroid(position, info);
+        }
+
+        public EnemyShip createEnemyShip(Vector2 position) {
+            return entityLayer.createEnemyShip(position);
         }
     }
 }

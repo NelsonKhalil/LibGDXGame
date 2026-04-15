@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class DrawContext {
-    public final boolean DRAW_DEBUG_HITBOX = true;
+    public final boolean DRAW_DEBUG_HITBOX = false;
 
     public final boolean DRAW_HUD = true;
     public final boolean DRAW_BACKGROUND = true;

@@ -8,6 +8,8 @@ import io.github.nelsonkhalil.entity.asteroid.AsteroidInfo;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
 import io.github.nelsonkhalil.entity.collision.Collisions;
+import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
+import io.github.nelsonkhalil.entity.enemy_ship.EnemyShip;
 import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
@@ -15,11 +17,13 @@ import io.github.nelsonkhalil.state.GameState;
 import java.util.*;
 
 public class EntityLayer {
-    private List<Entity> entities;
-    private Stack<Entity> bufferedEntities;
+    private final List<Entity> entities;
+    private final Stack<Entity> bufferedEntities;
 
-    private AssetManager assetManager;
-    private GameState gameState;
+    private final AssetManager assetManager;
+    private final GameState gameState;
+
+    private Optional<Player> player;
 
     private Map<Entity, Collisions> collisionsMap;
     public EntityLayer(AssetManager assetManager, GameState gameState) {
@@ -28,6 +32,7 @@ public class EntityLayer {
         entities = new ArrayList<>();
         bufferedEntities = new Stack<>();
         collisionsMap = new HashMap<>();
+        player = Optional.empty();
     }
 
     public void clear() {
@@ -44,7 +49,7 @@ public class EntityLayer {
         bufferedEntities.clear();
 
         entities.removeIf(Entity::shouldRemove);
-        precomputeAllCollisions();
+        precompute();
         for (Entity entity : entities) {
             entity.update(dt, context, assetManager, gameState);
         }
@@ -70,17 +75,32 @@ public class EntityLayer {
         return new Collisions();
     }
 
-    public void precomputeAllCollisions() {
+    private void precompute() {
+        precomputeAllCollisions();
+        precomputePlayer();
+    }
+
+    private void precomputePlayer() {
+        player = Optional.empty();
+        for (Entity entity : entities) {
+            if (entity instanceof Player playerEntity) {
+                player = Optional.of(playerEntity);
+                break;
+            }
+        }
+    }
+
+    private void precomputeAllCollisions() {
         for (Entity entity : entities) {
             precomputeCollisions(entity);
         }
     }
 
-    public void precomputeCollisions(Entity entity) {
+    private void precomputeCollisions(Entity entity) {
         collisionsMap.put(entity, computeCollisions(entity));
     }
 
-    public Collisions computeCollisions(Entity entity) {
+    private Collisions computeCollisions(Entity entity) {
         Collisions collisions = new Collisions();
 
         CollisionShape collisionShape = entity.getCollisionShape();
@@ -93,6 +113,14 @@ public class EntityLayer {
         }
 
         return collisions;
+    }
+
+    public List<Entity> getEntities() {
+        return Collections.unmodifiableList(entities);
+    }
+
+    public Optional<Player> getPlayer() {
+        return player;
     }
 
     public Player createPlayer() {
@@ -112,5 +140,18 @@ public class EntityLayer {
         addEntity(asteroid);
         return asteroid;
     }
+
+    public EnemyShip createEnemyShip(Vector2 position) {
+        EnemyShip enemyShip = new EnemyShip(position, assetManager);
+        addEntity(enemyShip);
+        return enemyShip;
+    }
+
+    public EnemyBullet createEnemyBullet(Vector2 position) {
+        EnemyBullet enemyBullet = new EnemyBullet(position, assetManager);
+        addEntity(enemyBullet);
+        return enemyBullet;
+    }
+
 
 }

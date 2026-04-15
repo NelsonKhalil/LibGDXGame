@@ -8,8 +8,8 @@ import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
 
 public interface Entity {
-    void update(float dt, World.WorldContext context, AssetManager assetManager, GameState gameState);
-    void render(DrawContext context, AssetManager assetManager);
+    void update(float dt, World.WorldContext context, AssetManager am, GameState gameState);
+    void render(DrawContext context, AssetManager am);
     boolean shouldRemove();
     void dispose();
     CollisionShape getCollisionShape();

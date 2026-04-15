@@ -10,7 +10,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.nelsonkhalil.assetmanager.AssetManager;
-import io.github.nelsonkhalil.entity.asteroid.AsteroidSpawner;
+import io.github.nelsonkhalil.entity.entity_spawner.AsteroidSpawner;
+import io.github.nelsonkhalil.entity.entity_spawner.EnemyShipSpawner;
 import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.render.Background;
 import io.github.nelsonkhalil.render.DrawContext;
@@ -53,6 +54,7 @@ public class Main extends ApplicationAdapter {
     private GameState gameState;
 
     private AsteroidSpawner asteroidSpawner;
+    private EnemyShipSpawner enemyShipSpawner;
 
 
     @Override
@@ -74,7 +76,9 @@ public class Main extends ApplicationAdapter {
         lifeDisplay = new LifeDisplay(new Vector2(VIEW_WIDTH - 30, VIEW_HEIGHT - 80), assetManager);
 
         world = new World(assetManager, gameState);
+
         asteroidSpawner = new AsteroidSpawner();
+        enemyShipSpawner = new EnemyShipSpawner();
 
         startGame();
     }
@@ -106,7 +110,9 @@ public class Main extends ApplicationAdapter {
         background.update(dt);
         World.WorldContext context = world.getContext();
         world.update(dt, context);
-        asteroidSpawner.spawnUpdate(dt, context);
+
+        asteroidSpawner.spawnUpdate(dt, context, RANDOM);
+        enemyShipSpawner.spawnUpdate(dt, context, RANDOM);
 
         if (gameState.gameOver()) {
             mainState = MainState.GAME_OVER;
@@ -151,6 +157,15 @@ public class Main extends ApplicationAdapter {
     public void resize(int width, int height) {
         final boolean centerCamera = true;
         viewport.update(width, height, centerCamera);
+    }
+
+    public static void clampToView(Vector2 vector, float offsetX, float offsetY) {
+        vector.x = Math.clamp(vector.x, offsetX, Main.VIEW_WIDTH - offsetX);
+        vector.y = Math.clamp(vector.y, offsetY, Main.VIEW_HEIGHT - offsetY);
+    }
+
+    public static void clampToView(Vector2 vector) {
+        clampToView(vector, 0, 0);
     }
 
 
