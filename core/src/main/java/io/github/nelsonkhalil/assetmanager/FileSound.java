@@ -4,6 +4,7 @@ public enum FileSound {
     PLAYER_SHOOT("player/shoot.wav", Type.SFX),
     PLAYER_HIT("player/player_hit.wav", Type.SFX),
     PLAYER_HIT_SHIELD("player/player_hit_shield.wav", Type.SFX),
+    PLAYER_DEATH("player/player_death.wav", Type.SFX),
 
     ENEMY_SHIP_SHOOT("enemy_ship/enemy_shoot.wav", Type.SFX),
     ENEMY_SHIP_HIT("enemy_ship/enemy_hit.wav", Type.SFX),

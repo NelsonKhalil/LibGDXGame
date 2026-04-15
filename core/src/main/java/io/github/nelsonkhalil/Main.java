@@ -77,13 +77,13 @@ public class Main extends ApplicationAdapter {
 
         world = new World(assetManager, gameState);
 
-        asteroidSpawner = new AsteroidSpawner();
-        enemyShipSpawner = new EnemyShipSpawner();
-
         startGame();
     }
 
     private void startGame() {
+        asteroidSpawner = new AsteroidSpawner();
+        enemyShipSpawner = new EnemyShipSpawner();
+
         mainState = MainState.PLAYING;
         world.clear();
         gameState.reset();

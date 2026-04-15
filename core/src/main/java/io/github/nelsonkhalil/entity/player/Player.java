@@ -86,6 +86,9 @@ public class Player implements Entity {
                     }
                     shield = 0;
                     gameState.kill();
+                    if (gameState.getLives() == 0) {
+                        am.playSound(FileSound.PLAYER_DEATH);
+                    }
                 }
             }
         }
