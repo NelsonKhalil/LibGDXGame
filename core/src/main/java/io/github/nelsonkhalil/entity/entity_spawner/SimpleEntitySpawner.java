@@ -2,8 +2,6 @@ package io.github.nelsonkhalil.entity.entity_spawner;
 
 import io.github.nelsonkhalil.World;
 
-import java.util.Random;
-
 public abstract class SimpleEntitySpawner implements EntitySpawner {
     abstract float getSpawnCooldown();
     private float spawnCooldown;

@@ -20,8 +20,6 @@ import io.github.nelsonkhalil.render.hud.NumberDisplay;
 import io.github.nelsonkhalil.state.GameState;
 import io.github.nelsonkhalil.state.MainState;
 
-import java.util.Random;
-
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
     public static final String TAG = "LibGDXGame";

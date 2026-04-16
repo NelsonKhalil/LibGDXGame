@@ -7,8 +7,6 @@ import io.github.nelsonkhalil.World;
 import io.github.nelsonkhalil.entity.asteroid.Asteroid;
 import io.github.nelsonkhalil.entity.asteroid.AsteroidInfo;
 
-import java.util.Random;
-
 public class AsteroidSpawner extends SimpleEntitySpawner {
     @Override
     float getSpawnCooldown() {
@@ -17,7 +15,7 @@ public class AsteroidSpawner extends SimpleEntitySpawner {
 
     @Override
     void doSpawnUpdate(float dt, World.WorldContext context) {
-        Asteroid asteroid = context.createAsteroid(new Vector2(
+        context.createAsteroid(new Vector2(
             MathUtils.random(Main.VIEW_WIDTH),
             Main.VIEW_HEIGHT + 200
         ), AsteroidInfo.randomSize());

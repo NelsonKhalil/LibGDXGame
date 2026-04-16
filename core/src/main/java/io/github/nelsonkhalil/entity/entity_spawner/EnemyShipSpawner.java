@@ -5,8 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.World;
 
-import java.util.Random;
-
 public class EnemyShipSpawner extends SimpleEntitySpawner {
 
     @Override
