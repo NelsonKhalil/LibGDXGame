@@ -6,6 +6,7 @@ import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.entity.asteroid.Asteroid;
 import io.github.nelsonkhalil.entity.asteroid.AsteroidInfo;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
+import io.github.nelsonkhalil.entity.collision.CollisionShape;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyShip;
 import io.github.nelsonkhalil.entity.player.Player;
@@ -40,16 +41,17 @@ public class EntityLayer {
     }
 
     public void updateAll(float dt, World.WorldContext context) {
-
         entities.addAll(bufferedEntities);
         bufferedEntities.clear();
 
-        onCollisionAll();
-        entities.removeIf(Entity::shouldRemove);
         precomputePlayer();
+
         for (Entity entity : entities) {
             entity.update(dt, context, assetLoader, gameState);
         }
+
+        onCollisionAll();
+        entities.removeIf(Entity::shouldRemove);
     }
 
     public void renderAll(DrawContext context) {
@@ -65,17 +67,22 @@ public class EntityLayer {
         }
     }
 
-    private void onCollisionAll() {
+    private Map<Entity, CollisionShape> getCollisionShapeMap() {
+        Map<Entity, CollisionShape> map = new HashMap<>();
         for (Entity entity : entities) {
-            onCollision(entity);
+            map.put(entity, entity.getCollisionShape());
         }
+        return map;
     }
 
-    private void onCollision(Entity entity) {
-        for (Entity other : entities) {
-            if (entity == other) continue;
-            if (entity.getCollisionShape().intersects(other.getCollisionShape()))
-                entity.onCollide(other, assetLoader, gameState);
+    private void onCollisionAll() {
+        Map<Entity, CollisionShape> collisionShapeMap = getCollisionShapeMap();
+        for (Entity entity : entities) {
+            for (Entity other : entities) {
+                if (entity == other) continue;
+                if (collisionShapeMap.get(entity).intersects(collisionShapeMap.get(other)))
+                    entity.onCollide(other, assetLoader, gameState);
+            }
         }
     }
 
