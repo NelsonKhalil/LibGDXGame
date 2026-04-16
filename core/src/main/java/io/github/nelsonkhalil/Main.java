@@ -28,8 +28,6 @@ public class Main extends ApplicationAdapter {
     public static void log(Object message) { Gdx.app.log(TAG, message.toString()); }
     public static void error(Object message) { Gdx.app.error(TAG, message.toString()); }
 
-    public static final Random RANDOM = new Random();
-
     public static final float VIEW_WIDTH = 800;
     public static final float VIEW_HEIGHT = 800;
 
@@ -111,8 +109,8 @@ public class Main extends ApplicationAdapter {
         World.WorldContext context = world.getContext();
         world.update(dt, context);
 
-        asteroidSpawner.spawnUpdate(dt, context, RANDOM);
-        enemyShipSpawner.spawnUpdate(dt, context, RANDOM);
+        asteroidSpawner.spawnUpdate(dt, context);
+        enemyShipSpawner.spawnUpdate(dt, context);
 
         if (gameState.gameOver()) {
             mainState = MainState.GAME_OVER;

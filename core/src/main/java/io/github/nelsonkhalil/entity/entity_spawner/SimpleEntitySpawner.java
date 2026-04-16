@@ -12,14 +12,14 @@ public abstract class SimpleEntitySpawner implements EntitySpawner {
         spawnCooldown = getSpawnCooldown();
     }
 
-    public void spawnUpdate(float dt, World.WorldContext context, Random random) {
+    public void spawnUpdate(float dt, World.WorldContext context) {
         if (spawnCooldown != 0) {
             spawnCooldown = Math.max(0, spawnCooldown - dt);
             return;
         }
-        doSpawnUpdate(dt, context, random);
+        doSpawnUpdate(dt, context);
         spawnCooldown = getSpawnCooldown();
     }
 
-    abstract void doSpawnUpdate(float dt, World.WorldContext context, Random random);
+    abstract void doSpawnUpdate(float dt, World.WorldContext context);
 }

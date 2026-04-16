@@ -1,5 +1,6 @@
 package io.github.nelsonkhalil.entity.entity_spawner;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.World;
@@ -14,9 +15,9 @@ public class EnemyShipSpawner extends SimpleEntitySpawner {
     }
 
     @Override
-    void doSpawnUpdate(float dt, World.WorldContext context, Random random) {
+    void doSpawnUpdate(float dt, World.WorldContext context) {
         context.createEnemyShip(new Vector2(
-            random.nextFloat(Main.VIEW_WIDTH),
+            MathUtils.random(Main.VIEW_WIDTH),
             Main.VIEW_HEIGHT + 200
         ));
     }

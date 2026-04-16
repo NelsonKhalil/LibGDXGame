@@ -2,6 +2,7 @@ package io.github.nelsonkhalil.entity.enemy_ship;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.World;
@@ -75,7 +76,7 @@ public class EnemyShip implements Entity {
             context.createEnemyBullet(bulletPosition);
 
             am.playSound(FileSound.ENEMY_SHIP_SHOOT);
-            shootCooldown = Main.RANDOM.nextFloat(0.75F, 2);
+            shootCooldown = MathUtils.random(0.75F, 2);
         }
 
         float offsetX = 0;
