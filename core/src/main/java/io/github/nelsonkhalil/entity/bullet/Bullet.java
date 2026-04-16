@@ -51,7 +51,6 @@ public class Bullet implements Entity {
 
     @Override
     public void dispose() {
-        sprite.dispose();
     }
 
     @Override

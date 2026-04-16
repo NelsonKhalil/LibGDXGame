@@ -19,4 +19,10 @@ public class FileTextureManager {
         textureMap.put(fileTexture, tex);
         return tex;
     }
+
+    public void dispose() {
+        for (Texture texture : textureMap.values()) {
+            texture.dispose();
+        }
+    }
 }

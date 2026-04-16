@@ -112,7 +112,6 @@ public class EnemyShip implements Entity {
 
     @Override
     public void dispose() {
-        spriteTexture.dispose();
     }
 
     @Override

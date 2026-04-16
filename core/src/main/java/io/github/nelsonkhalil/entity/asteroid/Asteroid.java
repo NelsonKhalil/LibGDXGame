@@ -66,7 +66,6 @@ public class Asteroid implements Entity {
 
     @Override
     public void dispose() {
-        sprite.dispose();
     }
 
     @Override

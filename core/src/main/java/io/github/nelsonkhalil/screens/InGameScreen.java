@@ -31,8 +31,11 @@ public class InGameScreen implements Screen {
     private AsteroidSpawner asteroidSpawner;
     private EnemyShipSpawner enemyShipSpawner;
 
+    private AssetManager assetManager;
 
-    public InGameScreen(AssetManager assetManager) {
+
+    public InGameScreen(AssetManager am) {
+        this.assetManager = am;
 
         drawContext = new DrawContext();
 
@@ -66,7 +69,7 @@ public class InGameScreen implements Screen {
         enemyShipSpawner.spawnUpdate(dt, context);
 
         if (gameState.gameOver()) {
-            // TODO: ADD GAME-OVER SCREEN
+            Main.setScreen(new GameOverScreen(assetManager));
         }
     }
 

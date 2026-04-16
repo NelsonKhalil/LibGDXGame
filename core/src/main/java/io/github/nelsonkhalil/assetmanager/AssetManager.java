@@ -22,4 +22,9 @@ public class AssetManager {
     public void playSound(FileSound sound) {
         soundManager.play(sound);
     }
+
+    public void dispose() {
+        textureManager.dispose();
+        soundManager.dispose();
+    }
 }

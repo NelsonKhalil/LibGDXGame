@@ -67,6 +67,7 @@ public class Main extends ApplicationAdapter {
     @Override
     public void dispose() {
         setScreen(null);
+        assetManager.dispose();
     }
 
     @Override

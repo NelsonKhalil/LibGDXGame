@@ -34,6 +34,5 @@ public class Background {
     }
 
     public void dispose() {
-        sprite.dispose();
     }
 }

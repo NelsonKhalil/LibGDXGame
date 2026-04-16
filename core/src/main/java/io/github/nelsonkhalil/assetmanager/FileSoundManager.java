@@ -34,4 +34,10 @@ public class FileSoundManager {
         }
         sound.play(volume / 100F);
     }
+
+    public void dispose() {
+        for (Sound sound : soundMap.values()) {
+            sound.dispose();
+        }
+    }
 }
