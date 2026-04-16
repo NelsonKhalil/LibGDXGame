@@ -3,7 +3,7 @@ package io.github.nelsonkhalil.entity.bullet;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.World;
-import io.github.nelsonkhalil.assetmanager.AssetManager;
+import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.assetmanager.FileTexture;
 import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.asteroid.Asteroid;
@@ -23,14 +23,14 @@ public class Bullet implements Entity {
 
     private boolean removeMarker = false;
 
-    public Bullet(Vector2 pos, AssetManager am) {
-        this.sprite = am.getTexture(FileTexture.BULLET);
+    public Bullet(Vector2 pos, AssetLoader al) {
+        this.sprite = al.getTexture(FileTexture.BULLET);
         this.position = pos.cpy();
         size = new Vector2(sprite.getWidth(), sprite.getHeight());
     }
 
     @Override
-    public void update(float dt, World.WorldContext context, AssetManager am, GameState gameState) {
+    public void update(float dt, World.WorldContext context, AssetLoader al, GameState gameState) {
         position.add(0, (size.y * SPEED) * dt);
 
         Collisions collisions = context.requestCollisions(this);
@@ -45,7 +45,7 @@ public class Bullet implements Entity {
     }
 
     @Override
-    public void render(DrawContext context, AssetManager am) {
+    public void render(DrawContext context, AssetLoader al) {
         context.batch.draw(sprite, position.x - (size.x / 2), position.y - (size.y / 2), size.x, size.y);
     }
 

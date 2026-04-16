@@ -3,7 +3,7 @@ package io.github.nelsonkhalil.screens;
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.World;
-import io.github.nelsonkhalil.assetmanager.AssetManager;
+import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.entity.entity_spawner.AsteroidSpawner;
 import io.github.nelsonkhalil.entity.entity_spawner.EnemyShipSpawner;
 import io.github.nelsonkhalil.entity.player.Player;
@@ -31,20 +31,20 @@ public class InGameScreen implements Screen {
     private AsteroidSpawner asteroidSpawner;
     private EnemyShipSpawner enemyShipSpawner;
 
-    private final AssetManager assetManager;
+    private final AssetLoader assetLoader;
 
-    public InGameScreen(AssetManager am) {
-        this.assetManager = am;
+    public InGameScreen(AssetLoader al) {
+        this.assetLoader = al;
 
         drawContext = new DrawContext();
 
-        background = new Background(assetManager);
+        background = new Background(assetLoader);
 
-        scoreDisplay = new NumberDisplay(new Vector2(Main.VIEW_WIDTH - 30, Main.VIEW_HEIGHT - 40), assetManager);
-        lifeDisplay = new LifeDisplay(new Vector2(Main.VIEW_WIDTH - 30, Main.VIEW_HEIGHT - 80), assetManager);
+        scoreDisplay = new NumberDisplay(new Vector2(Main.VIEW_WIDTH - 30, Main.VIEW_HEIGHT - 40), assetLoader);
+        lifeDisplay = new LifeDisplay(new Vector2(Main.VIEW_WIDTH - 30, Main.VIEW_HEIGHT - 80), assetLoader);
 
         gameState = new GameState();
-        world = new World(assetManager, gameState);
+        world = new World(assetLoader, gameState);
 
         startGame();
     }
@@ -68,7 +68,7 @@ public class InGameScreen implements Screen {
         enemyShipSpawner.spawnUpdate(dt, context);
 
         if (gameState.gameOver()) {
-            Main.setScreen(new GameOverScreen(assetManager));
+            Main.setScreen(new GameOverScreen(assetLoader));
         }
     }
 

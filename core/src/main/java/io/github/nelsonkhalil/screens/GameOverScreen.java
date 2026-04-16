@@ -3,7 +3,7 @@ package io.github.nelsonkhalil.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import io.github.nelsonkhalil.Main;
-import io.github.nelsonkhalil.assetmanager.AssetManager;
+import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.render.Background;
 import io.github.nelsonkhalil.render.DrawContext;
 
@@ -13,14 +13,14 @@ public class GameOverScreen implements Screen {
 
     private final Background background;
 
-    private final AssetManager assetManager;
+    private final AssetLoader assetLoader;
 
-    public GameOverScreen(AssetManager am) {
-        this.assetManager = am;
+    public GameOverScreen(AssetLoader al) {
+        this.assetLoader = al;
 
         drawContext = new DrawContext();
 
-        background = new Background(assetManager);
+        background = new Background(assetLoader);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class GameOverScreen implements Screen {
         background.update(dt);
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            Main.setScreen(new InGameScreen(assetManager));
+            Main.setScreen(new InGameScreen(assetLoader));
         }
     }
 

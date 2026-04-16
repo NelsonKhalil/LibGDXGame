@@ -1,7 +1,7 @@
 package io.github.nelsonkhalil;
 
 import com.badlogic.gdx.math.Vector2;
-import io.github.nelsonkhalil.assetmanager.AssetManager;
+import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.EntityLayer;
 import io.github.nelsonkhalil.entity.asteroid.Asteroid;
@@ -20,8 +20,8 @@ import java.util.Optional;
 public class World {
     private final EntityLayer entityLayer;
 
-    public World(AssetManager assetManager, GameState gameState) {
-        entityLayer = new EntityLayer(assetManager, gameState);
+    public World(AssetLoader assetLoader, GameState gameState) {
+        entityLayer = new EntityLayer(assetLoader, gameState);
     }
 
     public WorldContext getContext() {

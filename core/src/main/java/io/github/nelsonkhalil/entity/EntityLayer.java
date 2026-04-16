@@ -2,7 +2,7 @@ package io.github.nelsonkhalil.entity;
 
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.World;
-import io.github.nelsonkhalil.assetmanager.AssetManager;
+import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.entity.asteroid.Asteroid;
 import io.github.nelsonkhalil.entity.asteroid.AsteroidInfo;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
@@ -20,14 +20,14 @@ public class EntityLayer {
     private final List<Entity> entities;
     private final Stack<Entity> bufferedEntities;
 
-    private final AssetManager assetManager;
+    private final AssetLoader assetLoader;
     private final GameState gameState;
 
     private Player player;
 
     private final Map<Entity, Collisions> collisionsMap;
-    public EntityLayer(AssetManager assetManager, GameState gameState) {
-        this.assetManager = assetManager;
+    public EntityLayer(AssetLoader assetLoader, GameState gameState) {
+        this.assetLoader = assetLoader;
         this.gameState = gameState;
         entities = new ArrayList<>();
         bufferedEntities = new Stack<>();
@@ -51,13 +51,13 @@ public class EntityLayer {
         entities.removeIf(Entity::shouldRemove);
         precompute();
         for (Entity entity : entities) {
-            entity.update(dt, context, assetManager, gameState);
+            entity.update(dt, context, assetLoader, gameState);
         }
     }
 
     public void renderAll(DrawContext context) {
         for (Entity entity : entities) {
-            if (context.DRAW_ENTITIES) entity.render(context, assetManager);
+            if (context.DRAW_ENTITIES) entity.render(context, assetLoader);
             if (context.DRAW_DEBUG_HITBOX) entity.getCollisionShape().renderDebug(entity.getPosition(), context);
         }
     }
@@ -124,31 +124,31 @@ public class EntityLayer {
     }
 
     public Player createPlayer() {
-        Player player = new Player(assetManager);
+        Player player = new Player(assetLoader);
         addEntity(player);
         return player;
     }
 
     public Bullet createBullet(Vector2 position) {
-        Bullet bullet = new Bullet(position, assetManager);
+        Bullet bullet = new Bullet(position, assetLoader);
         addEntity(bullet);
         return bullet;
     }
 
     public Asteroid createAsteroid(Vector2 position, AsteroidInfo info) {
-        Asteroid asteroid = new Asteroid(position, info, assetManager);
+        Asteroid asteroid = new Asteroid(position, info, assetLoader);
         addEntity(asteroid);
         return asteroid;
     }
 
     public EnemyShip createEnemyShip(Vector2 position) {
-        EnemyShip enemyShip = new EnemyShip(position, assetManager);
+        EnemyShip enemyShip = new EnemyShip(position, assetLoader);
         addEntity(enemyShip);
         return enemyShip;
     }
 
     public EnemyBullet createEnemyBullet(Vector2 position) {
-        EnemyBullet enemyBullet = new EnemyBullet(position, assetManager);
+        EnemyBullet enemyBullet = new EnemyBullet(position, assetLoader);
         addEntity(enemyBullet);
         return enemyBullet;
     }

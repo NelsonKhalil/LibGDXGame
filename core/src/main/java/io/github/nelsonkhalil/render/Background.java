@@ -2,7 +2,7 @@ package io.github.nelsonkhalil.render;
 
 import com.badlogic.gdx.graphics.Texture;
 import io.github.nelsonkhalil.Main;
-import io.github.nelsonkhalil.assetmanager.AssetManager;
+import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.assetmanager.FileTexture;
 
 public class Background {
@@ -12,8 +12,8 @@ public class Background {
     private final float size;
     private float yOffset;
 
-    public Background(AssetManager am) {
-        sprite = am.getTexture(FileTexture.BACKGROUND);
+    public Background(AssetLoader al) {
+        sprite = al.getTexture(FileTexture.BACKGROUND);
         size = sprite.getWidth();
         yOffset = 0;
     }

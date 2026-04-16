@@ -2,7 +2,7 @@ package io.github.nelsonkhalil.render.hud;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import io.github.nelsonkhalil.assetmanager.AssetManager;
+import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.assetmanager.FileTexture;
 import io.github.nelsonkhalil.render.DrawContext;
 
@@ -26,9 +26,9 @@ public class NumberDisplay {
 
     private final Vector2 position;
     private final List<Texture> sprites;
-    public NumberDisplay(Vector2 position, AssetManager am) {
+    public NumberDisplay(Vector2 position, AssetLoader al) {
         this.position = position;
-        sprites = Arrays.stream(numFileTextures).map(am::getTexture).toList();
+        sprites = Arrays.stream(numFileTextures).map(al::getTexture).toList();
     }
 
     public void render(DrawContext context, int number) {

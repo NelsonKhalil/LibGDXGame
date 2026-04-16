@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.World;
-import io.github.nelsonkhalil.assetmanager.AssetManager;
+import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.assetmanager.FileSound;
 import io.github.nelsonkhalil.assetmanager.FileTexture;
 import io.github.nelsonkhalil.entity.Entity;
@@ -31,9 +31,9 @@ public class EnemyShip implements Entity {
     private int health;
     private float shootCooldown;
 
-    public EnemyShip(Vector2 position, AssetManager am) {
+    public EnemyShip(Vector2 position, AssetLoader al) {
         this.position = position.cpy();
-        spriteTexture = am.getTexture(FileTexture.ENEMY_SHIP);
+        spriteTexture = al.getTexture(FileTexture.ENEMY_SHIP);
         size = spriteTexture.getWidth();
         sprite = new Sprite(spriteTexture);
         health = 5;
@@ -41,7 +41,7 @@ public class EnemyShip implements Entity {
     }
 
     @Override
-    public void update(float dt, World.WorldContext context, AssetManager am, GameState gameState) {
+    public void update(float dt, World.WorldContext context, AssetLoader al, GameState gameState) {
 
         Optional<Player> optionalPlayer = context.requestPlayer();
         if (optionalPlayer.isEmpty()) return;
@@ -75,7 +75,7 @@ public class EnemyShip implements Entity {
             bulletPosition.add(0, size / -2 + 20);
             context.createEnemyBullet(bulletPosition);
 
-            am.playSound(FileSound.ENEMY_SHIP_SHOOT);
+            al.getSound(FileSound.ENEMY_SHIP_SHOOT).play();
             shootCooldown = MathUtils.random(0.75F, 2);
         }
 
@@ -87,11 +87,11 @@ public class EnemyShip implements Entity {
         if (collisions.collided()) {
             for (Entity entity : collisions.getOthers()) {
                 if (entity instanceof Bullet) {
-                    am.playSound(FileSound.ENEMY_SHIP_HIT);
+                    al.getSound(FileSound.ENEMY_SHIP_HIT).play();
 
                     health = Math.max(0, health - 1);
                     if (health == 0) {
-                        am.playSound(FileSound.ENEMY_SHIP_DEATH);
+                        al.getSound(FileSound.ENEMY_SHIP_DEATH).play();
                         gameState.addScore(100);
                     }
                 }
@@ -100,7 +100,7 @@ public class EnemyShip implements Entity {
     }
 
     @Override
-    public void render(DrawContext context, AssetManager assetManager) {
+    public void render(DrawContext context, AssetLoader al) {
         sprite.setCenter(position.x, position.y);
         sprite.draw(context.batch);
     }

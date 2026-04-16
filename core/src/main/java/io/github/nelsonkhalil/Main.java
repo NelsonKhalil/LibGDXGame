@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import io.github.nelsonkhalil.assetmanager.AssetManager;
+import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.screens.InGameScreen;
 import io.github.nelsonkhalil.screens.Screen;
 
@@ -23,8 +23,7 @@ public class Main extends ApplicationAdapter {
     public static final float VIEW_WIDTH = 800;
     public static final float VIEW_HEIGHT = 800;
 
-    private SettingsManager settingsManager;
-    private AssetManager assetManager;
+    private AssetLoader assetLoader;
 
     private static Screen currentScreen = null;
 
@@ -39,10 +38,10 @@ public class Main extends ApplicationAdapter {
         camera = new OrthographicCamera();
         viewport = new FitViewport(Main.VIEW_WIDTH, Main.VIEW_HEIGHT, camera);
 
-        settingsManager = new SettingsManager();
-        assetManager = new AssetManager(settingsManager);
+        assetLoader = new AssetLoader();
+        assetLoader.load();
 
-        setScreen(new InGameScreen(assetManager));
+        setScreen(new InGameScreen(assetLoader));
     }
 
     @Override
@@ -67,7 +66,7 @@ public class Main extends ApplicationAdapter {
     @Override
     public void dispose() {
         setScreen(null);
-        assetManager.dispose();
+        assetLoader.dispose();
     }
 
     @Override

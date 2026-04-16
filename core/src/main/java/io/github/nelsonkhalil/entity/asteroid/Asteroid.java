@@ -3,7 +3,7 @@ package io.github.nelsonkhalil.entity.asteroid;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.World;
-import io.github.nelsonkhalil.assetmanager.AssetManager;
+import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.assetmanager.FileSound;
 import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
@@ -24,15 +24,15 @@ public class Asteroid implements Entity {
 
     private int health;
 
-    public Asteroid(Vector2 pos, AsteroidInfo info, AssetManager am) {
-        this.sprite = am.getTexture(info.fileTexture());
+    public Asteroid(Vector2 pos, AsteroidInfo info, AssetLoader al) {
+        this.sprite = al.getTexture(info.fileTexture());
         this.position = pos.cpy();
         size = this.sprite.getWidth();
         health = info.size().health;
     }
 
     @Override
-    public void update(float dt, World.WorldContext context, AssetManager am, GameState gameState) {
+    public void update(float dt, World.WorldContext context, AssetLoader al, GameState gameState) {
         position.sub(0, (size * SPEED) * dt);
 
         Collisions collisions = context.requestCollisions(this);
@@ -41,16 +41,16 @@ public class Asteroid implements Entity {
                 if (entity instanceof Bullet || entity instanceof EnemyBullet || entity instanceof Player) {
                     if (entity instanceof Player) {
                         health = 0;
-                        am.playSound(FileSound.ASTEROID_PLAYER_COLLIDE);
+                        al.getSound(FileSound.ASTEROID_PLAYER_COLLIDE).play();
                         continue;
                     }
                     health = Math.max(0, health - 1);
                     size *= 0.8F;
                     if (health == 0) {
-                        am.playSound(FileSound.ASTEROID_DEATH);
+                        al.getSound(FileSound.ASTEROID_DEATH).play();
                         gameState.addScore(30);
                     } else {
-                        am.playSound(FileSound.ASTEROID_HIT);
+                        al.getSound(FileSound.ASTEROID_HIT).play();
                         gameState.addScore(5);
                     }
                 }
@@ -59,7 +59,7 @@ public class Asteroid implements Entity {
     }
 
     @Override
-    public void render(DrawContext context, AssetManager am) {
+    public void render(DrawContext context, AssetLoader al) {
         float half = size / 2;
         context.batch.draw(sprite, position.x - half, position.y - half, size, size);
     }

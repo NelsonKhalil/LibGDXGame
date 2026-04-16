@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.World;
-import io.github.nelsonkhalil.assetmanager.AssetManager;
+import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.assetmanager.FileSound;
 import io.github.nelsonkhalil.assetmanager.FileTexture;
 import io.github.nelsonkhalil.entity.Entity;
@@ -30,10 +30,10 @@ public class Player implements Entity {
 
     private float shootCooldown;
 
-    public Player(AssetManager am) {
+    public Player(AssetLoader al) {
         position = new Vector2(Main.VIEW_WIDTH / 2, 150);
 
-        spriteTexture = am.getTexture(FileTexture.PLAYER);
+        spriteTexture = al.getTexture(FileTexture.PLAYER);
         size = spriteTexture.getWidth();
 
         sprite = new Sprite(spriteTexture);
@@ -45,7 +45,7 @@ public class Player implements Entity {
     }
 
     @Override
-    public void update(float dt, World.WorldContext context, AssetManager am, GameState gameState) {
+    public void update(float dt, World.WorldContext context, AssetLoader al, GameState gameState) {
         float moveAmount = (size * SPEED) * dt;
 
         if (keyPressed(Input.Keys.UP, Input.Keys.W)) {
@@ -69,7 +69,7 @@ public class Player implements Entity {
             bulletPosition.add(0, size / 2 - 20);
             context.createBullet(bulletPosition);
 
-            am.playSound(FileSound.PLAYER_SHOOT);
+            al.getSound(FileSound.PLAYER_SHOOT).play();
             shootCooldown = 0.5F;
         }
 
@@ -81,13 +81,13 @@ public class Player implements Entity {
                 if (entity instanceof Asteroid || entity instanceof EnemyBullet) {
                     if (shield == 10) {
                         shield = 0;
-                        am.playSound(FileSound.PLAYER_HIT_SHIELD);
+                        al.getSound(FileSound.PLAYER_HIT_SHIELD).play();
                         continue;
                     }
                     shield = 0;
                     gameState.kill();
                     if (gameState.getLives() == 0) {
-                        am.playSound(FileSound.PLAYER_DEATH);
+                        al.getSound(FileSound.PLAYER_DEATH).play();
                     }
                 }
             }
@@ -95,13 +95,13 @@ public class Player implements Entity {
     }
 
     @Override
-    public void render(DrawContext context, AssetManager am) {
+    public void render(DrawContext context, AssetLoader al) {
         sprite.setCenter(position.x, position.y);
         sprite.draw(context.batch);
         FileTexture shieldSprite = FileTexture.SHIELD_1;
         if (shield > 5) shieldSprite = FileTexture.SHIELD_2;
         if (shield == 10) shieldSprite = FileTexture.SHIELD_3;
-        Texture shieldTexture = am.getTexture(shieldSprite);
+        Texture shieldTexture = al.getTexture(shieldSprite);
         context.batch.draw(shieldTexture, position.x - (shieldTexture.getWidth() / 2F), position.y - (shieldTexture.getHeight() / 2F));
     }
 
