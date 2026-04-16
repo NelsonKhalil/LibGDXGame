@@ -9,11 +9,11 @@ import io.github.nelsonkhalil.render.DrawContext;
 
 public class GameOverScreen implements Screen {
 
-    private DrawContext drawContext;
+    private final DrawContext drawContext;
 
-    private Background background;
+    private final Background background;
 
-    private AssetManager assetManager;
+    private final AssetManager assetManager;
 
     public GameOverScreen(AssetManager am) {
         this.assetManager = am;

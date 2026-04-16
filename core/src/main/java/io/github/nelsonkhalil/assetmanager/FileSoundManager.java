@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FileSoundManager {
-    private Map<FileSound, Sound> soundMap;
+    private final Map<FileSound, Sound> soundMap;
     private final SettingsManager settingsManager;
 
     public FileSoundManager(SettingsManager settingsManager) {

@@ -16,23 +16,22 @@ import io.github.nelsonkhalil.state.GameState;
 public class InGameScreen implements Screen {
 
 
-    private DrawContext drawContext;
+    private final DrawContext drawContext;
 
-    private Background background;
+    private final Background background;
 
-    private NumberDisplay scoreDisplay;
-    private LifeDisplay lifeDisplay;
+    private final NumberDisplay scoreDisplay;
+    private final LifeDisplay lifeDisplay;
 
-    private World world;
+    private final World world;
     private Player player;
 
-    private GameState gameState;
+    private final GameState gameState;
 
     private AsteroidSpawner asteroidSpawner;
     private EnemyShipSpawner enemyShipSpawner;
 
-    private AssetManager assetManager;
-
+    private final AssetManager assetManager;
 
     public InGameScreen(AssetManager am) {
         this.assetManager = am;

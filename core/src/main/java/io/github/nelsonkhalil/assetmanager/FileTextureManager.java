@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FileTextureManager {
-    private Map<FileTexture, Texture> textureMap;
+    private final Map<FileTexture, Texture> textureMap;
     public FileTextureManager() {
         textureMap = new HashMap<>();
     }
