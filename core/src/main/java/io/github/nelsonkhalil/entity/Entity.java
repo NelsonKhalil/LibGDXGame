@@ -9,7 +9,7 @@ import io.github.nelsonkhalil.state.GameState;
 
 public interface Entity {
     void update(float dt, World.WorldContext context, AssetLoader al, GameState gameState);
-    void render(DrawContext context, AssetLoader al); // TODO: REMOVE ASSET-MANAGER
+    void render(DrawContext context);
     boolean shouldRemove();
     void dispose();
     CollisionShape getCollisionShape();

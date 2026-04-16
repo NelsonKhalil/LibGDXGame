@@ -100,7 +100,7 @@ public class EnemyShip implements Entity {
     }
 
     @Override
-    public void render(DrawContext context, AssetLoader al) {
+    public void render(DrawContext context) {
         sprite.setCenter(position.x, position.y);
         sprite.draw(context.batch);
     }

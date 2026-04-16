@@ -57,7 +57,7 @@ public class EntityLayer {
 
     public void renderAll(DrawContext context) {
         for (Entity entity : entities) {
-            if (context.DRAW_ENTITIES) entity.render(context, assetLoader);
+            if (context.DRAW_ENTITIES) entity.render(context);
             if (context.DRAW_DEBUG_HITBOX) entity.getCollisionShape().renderDebug(entity.getPosition(), context);
         }
     }

@@ -45,7 +45,7 @@ public class Bullet implements Entity {
     }
 
     @Override
-    public void render(DrawContext context, AssetLoader al) {
+    public void render(DrawContext context) {
         context.batch.draw(sprite, position.x - (size.x / 2), position.y - (size.y / 2), size.x, size.y);
     }
 

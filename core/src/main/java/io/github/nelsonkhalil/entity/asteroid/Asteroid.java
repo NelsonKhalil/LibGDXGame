@@ -59,7 +59,7 @@ public class Asteroid implements Entity {
     }
 
     @Override
-    public void render(DrawContext context, AssetLoader al) {
+    public void render(DrawContext context) {
         float half = size / 2;
         context.batch.draw(sprite, position.x - half, position.y - half, size, size);
     }

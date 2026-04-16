@@ -26,6 +26,10 @@ public class Player implements Entity {
     private final float size;
     private final Vector2 position;
 
+    private final Texture shield1;
+    private final Texture shield2;
+    private final Texture shield3;
+
     private float shield;
 
     private float shootCooldown;
@@ -42,6 +46,10 @@ public class Player implements Entity {
         shield = 10;
 
         shootCooldown = 0;
+
+        shield1 = al.getTexture(FileTexture.SHIELD_1);
+        shield2 = al.getTexture(FileTexture.SHIELD_2);
+        shield3 = al.getTexture(FileTexture.SHIELD_3);
     }
 
     @Override
@@ -95,14 +103,13 @@ public class Player implements Entity {
     }
 
     @Override
-    public void render(DrawContext context, AssetLoader al) {
+    public void render(DrawContext context) {
         sprite.setCenter(position.x, position.y);
         sprite.draw(context.batch);
-        FileTexture shieldSprite = FileTexture.SHIELD_1;
-        if (shield > 5) shieldSprite = FileTexture.SHIELD_2;
-        if (shield == 10) shieldSprite = FileTexture.SHIELD_3;
-        Texture shieldTexture = al.getTexture(shieldSprite);
-        context.batch.draw(shieldTexture, position.x - (shieldTexture.getWidth() / 2F), position.y - (shieldTexture.getHeight() / 2F));
+        Texture shieldSprite = shield1;
+        if (shield > 5) shieldSprite = shield2;
+        if (shield == 10) shieldSprite = shield3;
+        context.batch.draw(shieldSprite, position.x - (shieldSprite.getWidth() / 2F), position.y - (shieldSprite.getHeight() / 2F));
     }
 
     @Override
