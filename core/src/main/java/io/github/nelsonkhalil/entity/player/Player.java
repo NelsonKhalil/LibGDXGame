@@ -13,7 +13,6 @@ import io.github.nelsonkhalil.assetmanager.FileTexture;
 import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.asteroid.Asteroid;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
-import io.github.nelsonkhalil.entity.collision.Collisions;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
@@ -82,24 +81,6 @@ public class Player implements Entity {
         }
 
         shield = Math.min(shield + dt, 10);
-
-        Collisions collisions = context.requestCollisions(this);
-        if (collisions.collided()) {
-            for (Entity entity : collisions.getOthers()) {
-                if (entity instanceof Asteroid || entity instanceof EnemyBullet) {
-                    if (shield == 10) {
-                        shield = 0;
-                        al.getSound(FileSound.PLAYER_HIT_SHIELD).play();
-                        continue;
-                    }
-                    shield = 0;
-                    gameState.kill();
-                    if (gameState.getLives() == 0) {
-                        al.getSound(FileSound.PLAYER_DEATH).play();
-                    }
-                }
-            }
-        }
     }
 
     @Override
@@ -123,12 +104,28 @@ public class Player implements Entity {
 
     @Override
     public CollisionShape getCollisionShape() {
-        return new CollisionShape(size / 2);
+        return new CollisionShape(position.cpy(), size / 2);
     }
 
     @Override
     public Vector2 getPosition() {
         return position.cpy();
+    }
+
+    @Override
+    public void onCollide(Entity entity, AssetLoader al, GameState gameState) {
+        if (entity instanceof Asteroid || entity instanceof EnemyBullet) {
+            if (shield == 10) {
+                shield = 0;
+                al.getSound(FileSound.PLAYER_HIT_SHIELD).play();
+                return;
+            }
+            shield = 0;
+            gameState.kill();
+            if (gameState.getLives() == 0) {
+                al.getSound(FileSound.PLAYER_DEATH).play();
+            }
+        }
     }
 
     private static boolean keyPressed(int... i) {

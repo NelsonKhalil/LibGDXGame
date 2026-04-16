@@ -6,8 +6,6 @@ import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.entity.asteroid.Asteroid;
 import io.github.nelsonkhalil.entity.asteroid.AsteroidInfo;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
-import io.github.nelsonkhalil.entity.collision.CollisionShape;
-import io.github.nelsonkhalil.entity.collision.Collisions;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyShip;
 import io.github.nelsonkhalil.entity.player.Player;
@@ -25,13 +23,11 @@ public class EntityLayer {
 
     private Player player;
 
-    private final Map<Entity, Collisions> collisionsMap;
     public EntityLayer(AssetLoader assetLoader, GameState gameState) {
         this.assetLoader = assetLoader;
         this.gameState = gameState;
         entities = new ArrayList<>();
         bufferedEntities = new Stack<>();
-        collisionsMap = new HashMap<>();
         player = null;
     }
 
@@ -48,8 +44,9 @@ public class EntityLayer {
         entities.addAll(bufferedEntities);
         bufferedEntities.clear();
 
+        onCollisionAll();
         entities.removeIf(Entity::shouldRemove);
-        precompute();
+        precomputePlayer();
         for (Entity entity : entities) {
             entity.update(dt, context, assetLoader, gameState);
         }
@@ -58,7 +55,7 @@ public class EntityLayer {
     public void renderAll(DrawContext context) {
         for (Entity entity : entities) {
             if (context.DRAW_ENTITIES) entity.render(context);
-            if (context.DRAW_DEBUG_HITBOX) entity.getCollisionShape().renderDebug(entity.getPosition(), context);
+            if (context.DRAW_DEBUG_HITBOX) entity.getCollisionShape().renderDebug(context);
         }
     }
 
@@ -68,16 +65,18 @@ public class EntityLayer {
         }
     }
 
-    public Collisions getCollisions(Entity entity) {
-        if (collisionsMap.containsKey(entity)) {
-            return collisionsMap.get(entity);
+    private void onCollisionAll() {
+        for (Entity entity : entities) {
+            onCollision(entity);
         }
-        return new Collisions();
     }
 
-    private void precompute() {
-        precomputeAllCollisions();
-        precomputePlayer();
+    private void onCollision(Entity entity) {
+        for (Entity other : entities) {
+            if (entity == other) continue;
+            if (entity.getCollisionShape().intersects(other.getCollisionShape()))
+                entity.onCollide(other, assetLoader, gameState);
+        }
     }
 
     private void precomputePlayer() {
@@ -88,31 +87,6 @@ public class EntityLayer {
                 break;
             }
         }
-    }
-
-    private void precomputeAllCollisions() {
-        for (Entity entity : entities) {
-            precomputeCollisions(entity);
-        }
-    }
-
-    private void precomputeCollisions(Entity entity) {
-        collisionsMap.put(entity, computeCollisions(entity));
-    }
-
-    private Collisions computeCollisions(Entity entity) {
-        Collisions collisions = new Collisions();
-
-        CollisionShape collisionShape = entity.getCollisionShape();
-        for (Entity other : entities) {
-            if (other == entity) continue;
-            CollisionShape otherShape = other.getCollisionShape();
-
-            if (collisionShape.intersects(otherShape, entity.getPosition(), other.getPosition()))
-                collisions.addOther(other);
-        }
-
-        return collisions;
     }
 
     public List<Entity> getEntities() {

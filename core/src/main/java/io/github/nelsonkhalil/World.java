@@ -7,7 +7,6 @@ import io.github.nelsonkhalil.entity.EntityLayer;
 import io.github.nelsonkhalil.entity.asteroid.Asteroid;
 import io.github.nelsonkhalil.entity.asteroid.AsteroidInfo;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
-import io.github.nelsonkhalil.entity.collision.Collisions;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyShip;
 import io.github.nelsonkhalil.entity.player.Player;
@@ -51,9 +50,6 @@ public class World {
     public class WorldContext {
         private WorldContext() {}
 
-        public Collisions requestCollisions(Entity entity) {
-            return entityLayer.getCollisions(entity);
-        }
         public List<Entity> requestEntities() {
             return entityLayer.getEntities();
         }

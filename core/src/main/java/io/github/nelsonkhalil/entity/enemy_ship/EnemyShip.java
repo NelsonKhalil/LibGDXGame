@@ -12,7 +12,6 @@ import io.github.nelsonkhalil.assetmanager.FileTexture;
 import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
-import io.github.nelsonkhalil.entity.collision.Collisions;
 import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
@@ -82,21 +81,6 @@ public class EnemyShip implements Entity {
         float offsetX = 0;
         float offsetY = -200;
         Main.clampToView(position, offsetX, offsetY);
-
-        Collisions collisions = context.requestCollisions(this);
-        if (collisions.collided()) {
-            for (Entity entity : collisions.getOthers()) {
-                if (entity instanceof Bullet) {
-                    al.getSound(FileSound.ENEMY_SHIP_HIT).play();
-
-                    health = Math.max(0, health - 1);
-                    if (health == 0) {
-                        al.getSound(FileSound.ENEMY_SHIP_DEATH).play();
-                        gameState.addScore(100);
-                    }
-                }
-            }
-        }
     }
 
     @Override
@@ -116,11 +100,24 @@ public class EnemyShip implements Entity {
 
     @Override
     public CollisionShape getCollisionShape() {
-        return new CollisionShape(size / 2);
+        return new CollisionShape(position.cpy(), size / 2);
     }
 
     @Override
     public Vector2 getPosition() {
         return position.cpy();
+    }
+
+    @Override
+    public void onCollide(Entity entity, AssetLoader al, GameState gameState) {
+        if (entity instanceof Bullet) {
+            al.getSound(FileSound.ENEMY_SHIP_HIT).play();
+
+            health = Math.max(0, health - 1);
+            if (health == 0) {
+                al.getSound(FileSound.ENEMY_SHIP_DEATH).play();
+                gameState.addScore(100);
+            }
+        }
     }
 }

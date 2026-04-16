@@ -15,5 +15,5 @@ public interface Entity {
     CollisionShape getCollisionShape();
     Vector2 getPosition();
 
-    //TODO: COLLIDE WITH EVENT ( onCollideWith )
+    void onCollide(Entity entity, AssetLoader al, GameState gameState);
 }

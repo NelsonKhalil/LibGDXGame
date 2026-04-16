@@ -1,36 +1,38 @@
 package io.github.nelsonkhalil.entity.collision;
 
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.render.DrawContext;
-// TODO: REPLACE WITH BUILTIN LIBGDX
-public record CollisionShape(float radius, Vector2 offset) {
-    public CollisionShape(float radius) {
-        this(radius, Vector2.Zero);
+
+public class CollisionShape {
+
+    public final Circle circle;
+
+    public CollisionShape(Circle circle) {
+        this.circle = circle;
     }
 
-    public boolean intersects(CollisionShape other, Vector2 thisPos, Vector2 otherPos) {
-        Vector2 thisOrigin = thisPos.add(this.offset);
-        Vector2 otherOrigin = otherPos.add(other.offset);
-        float distance = thisOrigin.dst(otherOrigin);
-        return (this.radius + other.radius) > distance;
+    public CollisionShape(Vector2 position, float radius) {
+        this(new Circle(position, radius));
     }
 
-    public boolean isOnScreen(Vector2 thisPos) {
-        Vector2 thisOrigin = thisPos.cpy().add(offset);
-        float half = radius / 2;
+    public boolean intersects(CollisionShape other) {
+        return circle.overlaps(other.circle);
+    }
 
-        if ((thisOrigin.x + half) < 0 || (thisOrigin.x - half) > Main.VIEW_WIDTH)
+    public boolean isOnScreen() {
+        float half = circle.radius;
+        if ((circle.x + half) < 0 || (circle.x - half) > Main.VIEW_WIDTH)
             return false;
-        if ((thisOrigin.y + half) < 0 || (thisOrigin.y - half) > Main.VIEW_HEIGHT)
+        if ((circle.y + half) < 0 || (circle.y - half) > Main.VIEW_HEIGHT)
             return false;
 
         return true;
     }
 
-    public void renderDebug(Vector2 pos, DrawContext context) {
+    public void renderDebug(DrawContext context) {
         if (!context.DRAW_DEBUG_HITBOX) return;
-        Vector2 origin = pos.add(offset);
-        context.shapeRenderer.circle(origin.x, origin.y, radius);
+        context.shapeRenderer.circle(circle.x, circle.y, circle.radius);
     }
 }

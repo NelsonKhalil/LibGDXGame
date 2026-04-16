@@ -8,7 +8,6 @@ import io.github.nelsonkhalil.assetmanager.FileTexture;
 import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.asteroid.Asteroid;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
-import io.github.nelsonkhalil.entity.collision.Collisions;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyShip;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
@@ -32,16 +31,6 @@ public class Bullet implements Entity {
     @Override
     public void update(float dt, World.WorldContext context, AssetLoader al, GameState gameState) {
         position.add(0, (size.y * SPEED) * dt);
-
-        Collisions collisions = context.requestCollisions(this);
-        if (collisions.collided()) {
-            for (Entity entity : collisions.getOthers()) {
-                if (entity instanceof Asteroid || entity instanceof EnemyShip) {
-                    removeMarker = true;
-                    break;
-                }
-            }
-        }
     }
 
     @Override
@@ -55,7 +44,7 @@ public class Bullet implements Entity {
 
     @Override
     public CollisionShape getCollisionShape() {
-        return new CollisionShape(size.x / 2, new Vector2(0, size.y / 2));
+        return new CollisionShape(position.cpy().add(0, size.y / 2), size.x / 2);
     }
 
     @Override
@@ -64,7 +53,14 @@ public class Bullet implements Entity {
     }
 
     @Override
+    public void onCollide(Entity entity, AssetLoader al, GameState gameState) {
+        if (entity instanceof Asteroid || entity instanceof EnemyShip) {
+            removeMarker = true;
+        }
+    }
+
+    @Override
     public boolean shouldRemove() {
-        return (!getCollisionShape().isOnScreen(position)) || removeMarker;
+        return (!getCollisionShape().isOnScreen()) || removeMarker;
     }
 }
