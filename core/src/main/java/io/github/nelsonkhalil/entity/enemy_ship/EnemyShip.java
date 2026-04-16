@@ -58,7 +58,7 @@ public class EnemyShip implements Entity {
         if (dist > 600) {
             moveVector.add(move.x / 4, move.y);
         } else if (dist > 400) {
-            moveVector.add(move.x, move.y / 10);
+            moveVector.add(move.x * (1 + (-shootCooldown * 1)), move.y / 10);
         } else {
             moveVector.add(move.x / 10, -move.y);
         }
@@ -92,6 +92,7 @@ public class EnemyShip implements Entity {
                     health = Math.max(0, health - 1);
                     if (health == 0) {
                         am.playSound(FileSound.ENEMY_SHIP_DEATH);
+                        gameState.addScore(100);
                     }
                 }
             }

@@ -3,7 +3,7 @@ package io.github.nelsonkhalil.entity.collision;
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.render.DrawContext;
-
+// TODO: REPLACE WITH BUILTIN LIBGDX
 public record CollisionShape(float radius, Vector2 offset) {
     public CollisionShape(float radius) {
         this(radius, Vector2.Zero);

@@ -27,7 +27,7 @@ public enum FileSound {
         SFX(100),
         MISC(100);
 
-        public final int defaultVolume;
+        public final int defaultVolume; // TODO: PLACE SOMEWHERE ELSE, DO NOT MAKE THINGS YOU DON'T NEED
         Type(int defaultVolume) {
             this.defaultVolume = defaultVolume;
         }

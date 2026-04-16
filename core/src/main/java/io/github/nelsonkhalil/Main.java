@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -22,7 +23,9 @@ import io.github.nelsonkhalil.state.MainState;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
+
     public static final String TAG = "LibGDXGame";
+
     public static void log(Object message) { Gdx.app.log(TAG, message.toString()); }
     public static void error(Object message) { Gdx.app.error(TAG, message.toString()); }
 
@@ -132,7 +135,7 @@ public class Main extends ApplicationAdapter {
     public void render() {
         float dt = Gdx.graphics.getDeltaTime();
 
-        final Color backgroundColor = new Color(0xffffffff);
+        final Color backgroundColor = new Color(0x3c3042ff);
         ScreenUtils.clear(backgroundColor);
 
         updateGame(dt);

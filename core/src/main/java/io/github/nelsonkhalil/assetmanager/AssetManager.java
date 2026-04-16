@@ -12,6 +12,9 @@ public class AssetManager {
         soundManager = new FileSoundManager(settingsManager);
     }
 
+    // TODO: REPLACE WITH LIBGDX
+    // TODO: MANAGER IS A BAD NAME ( ANTI-PATTERN ), LOADER, ...
+
     public Texture getTexture(FileTexture texture) {
         return textureManager.get(texture);
     }

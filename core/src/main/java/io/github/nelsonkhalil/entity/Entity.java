@@ -9,9 +9,11 @@ import io.github.nelsonkhalil.state.GameState;
 
 public interface Entity {
     void update(float dt, World.WorldContext context, AssetManager am, GameState gameState);
-    void render(DrawContext context, AssetManager am);
+    void render(DrawContext context, AssetManager am); // TODO: REMOVE ASSET-MANAGER
     boolean shouldRemove();
     void dispose();
     CollisionShape getCollisionShape();
     Vector2 getPosition();
+
+    //TODO: COLLIDE WITH EVENT ( onCollideWith )
 }
