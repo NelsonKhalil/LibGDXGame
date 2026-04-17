@@ -50,9 +50,6 @@ public class World {
     public class WorldContext {
         private WorldContext() {}
 
-        public List<Entity> requestEntities() {
-            return entityLayer.getEntities();
-        }
         public Optional<Player> requestPlayer() {
             return entityLayer.getPlayer();
         }

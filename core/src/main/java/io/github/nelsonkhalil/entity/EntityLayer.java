@@ -96,10 +96,6 @@ public class EntityLayer {
         }
     }
 
-    public List<Entity> getEntities() {
-        return Collections.unmodifiableList(entities);
-    }
-
     public Optional<Player> getPlayer() {
         return Optional.of(player);
     }
