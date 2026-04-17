@@ -9,8 +9,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.nelsonkhalil.assetmanager.AssetLoader;
-import io.github.nelsonkhalil.screens.InGameScreen;
-import io.github.nelsonkhalil.screens.Screen;
+import io.github.nelsonkhalil.screen.InGameScreen;
+import io.github.nelsonkhalil.screen.Screen;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {

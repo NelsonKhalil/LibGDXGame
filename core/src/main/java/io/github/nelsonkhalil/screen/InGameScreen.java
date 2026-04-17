@@ -1,4 +1,4 @@
-package io.github.nelsonkhalil.screens;
+package io.github.nelsonkhalil.screen;
 
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.Main;
