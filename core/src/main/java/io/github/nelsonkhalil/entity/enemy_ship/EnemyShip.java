@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.World;
 import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.assetmanager.FileSound;
@@ -13,6 +12,7 @@ import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
 import io.github.nelsonkhalil.entity.player.Player;
+import io.github.nelsonkhalil.helper.VectorHelper;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
 
@@ -80,7 +80,7 @@ public class EnemyShip implements Entity {
 
         float offsetX = 0;
         float offsetY = -200;
-        Main.clampToView(position, offsetX, offsetY);
+        VectorHelper.clampToView(position, offsetX, offsetY);
     }
 
     @Override

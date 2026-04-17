@@ -14,6 +14,7 @@ import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.asteroid.Asteroid;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
+import io.github.nelsonkhalil.helper.VectorHelper;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
 
@@ -68,7 +69,7 @@ public class Player implements Entity {
             position.add(moveAmount, 0);
         }
 
-        Main.clampToView(position);
+        VectorHelper.clampToView(position);
 
         shootCooldown = Math.max(shootCooldown - dt, 0);
         if (keyPressed(Input.Keys.SPACE) && shootCooldown == 0) {
