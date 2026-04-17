@@ -3,7 +3,6 @@ package io.github.nelsonkhalil.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.assetmanager.FileFont;
@@ -48,13 +47,6 @@ public class GameOverScreen implements Screen {
         background = new Background(assetLoader);
 
         wasPressingSpace = Gdx.input.isKeyPressed(Input.Keys.SPACE);
-    }
-
-    private void drawCenteredText(DrawContext drawContext, String text, float yOffset) {
-        GlyphLayout layout = new GlyphLayout(font, text);
-        float x = (Main.VIEW_WIDTH - layout.width) / 2;
-        float y = (yOffset + layout.height);
-        font.draw(drawContext.batch, layout, x, y);
     }
 
     @Override
