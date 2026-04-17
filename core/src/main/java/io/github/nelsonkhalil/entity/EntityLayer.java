@@ -70,7 +70,9 @@ public class EntityLayer {
     private Map<Entity, CollisionShape> getCollisionShapeMap() {
         Map<Entity, CollisionShape> map = new HashMap<>();
         for (Entity entity : entities) {
-            map.put(entity, entity.getCollisionShape());
+            CollisionShape collisionShape = entity.getCollisionShape();
+            if (collisionShape == null) continue;
+            map.put(entity, collisionShape);
         }
         return map;
     }
@@ -80,6 +82,7 @@ public class EntityLayer {
         for (Entity entity : entities) {
             for (Entity other : entities) {
                 if (entity == other) continue;
+                if (!collisionShapeMap.containsKey(entity) || !collisionShapeMap.containsKey(other)) continue;
                 if (collisionShapeMap.get(entity).intersects(collisionShapeMap.get(other)))
                     entity.onCollide(other, assetLoader, gameState);
             }
