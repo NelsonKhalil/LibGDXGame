@@ -70,6 +70,7 @@ public class InGameScreen implements Screen {
         if (gameState.gameOver()) {
             Main.setScreen(new GameOverScreen(assetLoader, gameState));
         }
+        MainMenuScreen.listenForESC(assetLoader);
     }
 
     @Override

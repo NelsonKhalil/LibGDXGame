@@ -60,6 +60,7 @@ public class GameOverScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             Main.setScreen(new InGameScreen(assetLoader));
         }
+        MainMenuScreen.listenForESC(assetLoader);
     }
 
     @Override
@@ -73,7 +74,7 @@ public class GameOverScreen implements Screen {
         drawContext.drawCenteredText(font, "Score:", Main.VIEW_HEIGHT / 2);
         drawContext.drawCenteredText(font, String.valueOf(gameState.getScore()), Main.VIEW_HEIGHT / 2 - 50);
         drawContext.drawCenteredText(font, "Press [SPACE] to restart", 100);
-        //drawContext.drawCenteredText(font, "Press [ESC] to enter menu", 50);
+        drawContext.drawCenteredText(font, "Press [ESC] to enter menu", 50);
 
         drawContext.end();
     }

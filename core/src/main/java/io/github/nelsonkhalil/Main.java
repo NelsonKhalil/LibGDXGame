@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.nelsonkhalil.assetmanager.AssetLoader;
-import io.github.nelsonkhalil.screen.InGameScreen;
+import io.github.nelsonkhalil.screen.MainMenuScreen;
 import io.github.nelsonkhalil.screen.Screen;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -34,6 +34,7 @@ public class Main extends ApplicationAdapter {
     public void create() {
 
         Gdx.graphics.setWindowedMode((int) VIEW_WIDTH, (int) VIEW_HEIGHT);
+        Gdx.graphics.setTitle("A-Steroids");
 
         camera = new OrthographicCamera();
         viewport = new FitViewport(Main.VIEW_WIDTH, Main.VIEW_HEIGHT, camera);
@@ -41,7 +42,7 @@ public class Main extends ApplicationAdapter {
         assetLoader = new AssetLoader();
         assetLoader.load();
 
-        setScreen(new InGameScreen(assetLoader));
+        setScreen(new MainMenuScreen(assetLoader));
     }
 
     @Override
