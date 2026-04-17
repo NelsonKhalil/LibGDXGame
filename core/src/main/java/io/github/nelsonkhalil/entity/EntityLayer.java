@@ -17,7 +17,7 @@ import java.util.*;
 
 public class EntityLayer {
     private final List<Entity> entities;
-    private final Stack<Entity> bufferedEntities;
+    private final List<Entity> entitiesToAdd;
 
     private final AssetLoader assetLoader;
     private final GameState gameState;
@@ -28,7 +28,7 @@ public class EntityLayer {
         this.assetLoader = assetLoader;
         this.gameState = gameState;
         entities = new ArrayList<>();
-        bufferedEntities = new Stack<>();
+        entitiesToAdd = new ArrayList<>();
         player = null;
     }
 
@@ -37,12 +37,12 @@ public class EntityLayer {
     }
 
     public void addEntity(Entity entity) {
-        bufferedEntities.add(entity);
+        entitiesToAdd.add(entity);
     }
 
     public void updateAll(float dt, World.WorldContext context) {
-        entities.addAll(bufferedEntities);
-        bufferedEntities.clear();
+        entities.addAll(entitiesToAdd);
+        entitiesToAdd.clear();
 
         precomputePlayer();
 
