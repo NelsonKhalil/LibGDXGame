@@ -68,7 +68,7 @@ public class InGameScreen implements Screen {
         enemyShipSpawner.spawnUpdate(dt, context);
 
         if (gameState.gameOver()) {
-            Main.setScreen(new GameOverScreen(assetLoader));
+            Main.setScreen(new GameOverScreen(assetLoader, gameState));
         }
     }
 
