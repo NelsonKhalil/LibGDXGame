@@ -5,7 +5,7 @@ import io.github.nelsonkhalil.helper.ListHelper;
 
 public record AsteroidInfo(FileTexture fileTexture, AsteroidSize size) {
     public static AsteroidInfo fromSize(AsteroidSize size) {
-        return new AsteroidInfo(ListHelper.randomEntry(size.textures), size);
+        return new AsteroidInfo(size.textures.getRandom(), size);
     }
 
     public static AsteroidInfo randomSize() {
