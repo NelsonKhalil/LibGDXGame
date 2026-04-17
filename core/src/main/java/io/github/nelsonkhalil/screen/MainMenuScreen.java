@@ -57,12 +57,6 @@ public class MainMenuScreen implements Screen {
         drawContext.end();
     }
 
-    public static void listenForESC(AssetLoader assetLoader) {
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            Main.setScreen(new MainMenuScreen(assetLoader));
-        }
-    }
-
     @Override
     public void dispose() {
         background.dispose();

@@ -1,5 +1,7 @@
 package io.github.nelsonkhalil.screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.World;
@@ -70,7 +72,10 @@ public class InGameScreen implements Screen {
         if (gameState.gameOver()) {
             Main.setScreen(new GameOverScreen(assetLoader, gameState));
         }
-        MainMenuScreen.listenForESC(assetLoader);
+
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            Main.setScreen(new MainMenuScreen(assetLoader));
+        }
     }
 
     @Override

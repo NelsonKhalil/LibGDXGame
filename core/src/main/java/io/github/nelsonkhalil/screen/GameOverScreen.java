@@ -59,7 +59,10 @@ public class GameOverScreen implements Screen {
         } else {
             wasPressingSpace = false;
         }
-        MainMenuScreen.listenForESC(assetLoader);
+
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            Main.setScreen(new MainMenuScreen(assetLoader));
+        }
     }
 
     @Override
