@@ -32,13 +32,13 @@ public class MainMenuScreen implements Screen {
     }
 
     @Override
-    public void update(float dt) {
+    public void update(float dt, ScreenHost screenHost) {
         background.update(dt);
 
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (!wasPressingSpace)
-                Main.setScreen(new InGameScreen(assetLoader));
+                screenHost.setScreen(new InGameScreen(assetLoader));
         } else {
             wasPressingSpace = false;
         }

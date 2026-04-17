@@ -50,18 +50,18 @@ public class GameOverScreen implements Screen {
     }
 
     @Override
-    public void update(float dt) {
+    public void update(float dt, ScreenHost screenHost) {
         background.update(dt);
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (!wasPressingSpace)
-                Main.setScreen(new InGameScreen(assetLoader));
+                screenHost.setScreen(new InGameScreen(assetLoader));
         } else {
             wasPressingSpace = false;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            Main.setScreen(new MainMenuScreen(assetLoader));
+            screenHost.setScreen(new MainMenuScreen(assetLoader));
         }
     }
 

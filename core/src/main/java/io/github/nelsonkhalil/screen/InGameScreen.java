@@ -61,7 +61,7 @@ public class InGameScreen implements Screen {
     }
 
     @Override
-    public void update(float dt) {
+    public void update(float dt, ScreenHost screenHost) {
         background.update(dt);
         World.WorldContext context = world.getContext();
         world.update(dt, context);
@@ -70,11 +70,11 @@ public class InGameScreen implements Screen {
         enemyShipSpawner.spawnUpdate(dt, context);
 
         if (gameState.gameOver()) {
-            Main.setScreen(new GameOverScreen(assetLoader, gameState));
+            screenHost.setScreen(new GameOverScreen(assetLoader, gameState));
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            Main.setScreen(new MainMenuScreen(assetLoader));
+            screenHost.setScreen(new MainMenuScreen(assetLoader));
         }
     }
 
