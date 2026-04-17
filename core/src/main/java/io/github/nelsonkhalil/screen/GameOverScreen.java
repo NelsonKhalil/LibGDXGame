@@ -35,6 +35,8 @@ public class GameOverScreen implements Screen {
 
     private final String message;
 
+    private boolean wasPressingSpace;
+
     public GameOverScreen(AssetLoader al, GameState gameState) {
         this.assetLoader = al;
         this.gameState = gameState;
@@ -44,6 +46,8 @@ public class GameOverScreen implements Screen {
         font = assetLoader.getFont(FileFont.MAIN);
 
         background = new Background(assetLoader);
+
+        wasPressingSpace = Gdx.input.isKeyPressed(Input.Keys.SPACE);
     }
 
     private void drawCenteredText(DrawContext drawContext, String text, float yOffset) {
@@ -58,7 +62,10 @@ public class GameOverScreen implements Screen {
         background.update(dt);
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            Main.setScreen(new InGameScreen(assetLoader));
+            if (!wasPressingSpace)
+                Main.setScreen(new InGameScreen(assetLoader));
+        } else {
+            wasPressingSpace = false;
         }
         MainMenuScreen.listenForESC(assetLoader);
     }

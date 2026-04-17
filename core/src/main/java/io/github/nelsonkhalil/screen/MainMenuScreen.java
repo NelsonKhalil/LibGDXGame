@@ -20,11 +20,15 @@ public class MainMenuScreen implements Screen {
 
     private final BitmapFont font;
 
+    private boolean wasPressingSpace;
+
     public MainMenuScreen(AssetLoader assetLoader) {
         this.assetLoader = assetLoader;
         drawContext = new DrawContext();
         background = new Background(assetLoader);
         font = assetLoader.getFont(FileFont.MAIN);
+
+        wasPressingSpace = Gdx.input.isKeyPressed(Input.Keys.SPACE);
     }
 
     @Override
@@ -33,7 +37,10 @@ public class MainMenuScreen implements Screen {
 
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            Main.setScreen(new InGameScreen(assetLoader));
+            if (!wasPressingSpace)
+                Main.setScreen(new InGameScreen(assetLoader));
+        } else {
+            wasPressingSpace = false;
         }
     }
 
