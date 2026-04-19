@@ -11,6 +11,9 @@ import io.github.nelsonkhalil.assetmanager.FileTexture;
 import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
+import io.github.nelsonkhalil.entity.particle.BlackSmokeParticleInfo;
+import io.github.nelsonkhalil.entity.particle.ExplosionParticleInfo;
+import io.github.nelsonkhalil.entity.particle.PartialGeneralParticleInfo;
 import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.helper.VectorHelper;
 import io.github.nelsonkhalil.render.DrawContext;
@@ -109,15 +112,31 @@ public class EnemyShip implements Entity {
     }
 
     @Override
-    public void onCollide(Entity entity, AssetLoader al, GameState gameState) {
+    public void onCollide(Entity entity, World.WorldContext context, AssetLoader al, GameState gameState) {
         if (entity instanceof Bullet) {
             al.getSound(FileSound.ENEMY_SHIP_HIT).play();
 
             health = Math.max(0, health - 1);
             if (health == 0) {
                 al.getSound(FileSound.ENEMY_SHIP_DEATH).play();
+                explode(context);
                 gameState.addScore(100);
             }
+        }
+    }
+
+    private void explode(World.WorldContext context) {
+        for (int i = 0; i < 40; i++) {
+            context.createBlackSmokeParticle(
+                new PartialGeneralParticleInfo(position).withRandomVel(MathUtils.random(40, 150)),
+                new BlackSmokeParticleInfo(size / 250)
+            );
+        }
+        for (int i = 0; i < 20; i++) {
+            context.createExplosionParticle(
+                new PartialGeneralParticleInfo(position).withRandomVel(MathUtils.random(20, 75)),
+                new ExplosionParticleInfo(size / 250)
+            );
         }
     }
 }

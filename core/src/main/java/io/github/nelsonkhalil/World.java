@@ -8,6 +8,7 @@ import io.github.nelsonkhalil.entity.asteroid.AsteroidInfo;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyShip;
+import io.github.nelsonkhalil.entity.particle.*;
 import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
@@ -66,6 +67,14 @@ public class World {
 
         public EnemyShip createEnemyShip(Vector2 position) {
             return entityLayer.createEnemyShip(position);
+        }
+
+        public ExplosionParticle createExplosionParticle(PartialGeneralParticleInfo ginfo, ExplosionParticleInfo info) {
+            return entityLayer.createExplosionParticle(ginfo, info);
+        }
+
+        public BlackSmokeParticle createBlackSmokeParticle(PartialGeneralParticleInfo ginfo, BlackSmokeParticleInfo info) {
+            return entityLayer.createBlackSmokeParticle(ginfo, info);
         }
     }
 }

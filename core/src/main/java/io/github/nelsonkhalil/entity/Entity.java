@@ -15,5 +15,5 @@ public interface Entity {
     CollisionShape getCollisionShape();
     Vector2 getPosition();
 
-    void onCollide(Entity entity, AssetLoader al, GameState gameState);
+    void onCollide(Entity entity, World.WorldContext context, AssetLoader al, GameState gameState);
 }

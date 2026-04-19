@@ -53,7 +53,7 @@ public class Bullet implements Entity {
     }
 
     @Override
-    public void onCollide(Entity entity, AssetLoader al, GameState gameState) {
+    public void onCollide(Entity entity, World.WorldContext context, AssetLoader al, GameState gameState) {
         if (entity instanceof Asteroid || entity instanceof EnemyShip) {
             removeMarker = true;
         }

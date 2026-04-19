@@ -114,7 +114,7 @@ public class Player implements Entity {
     }
 
     @Override
-    public void onCollide(Entity entity, AssetLoader al, GameState gameState) {
+    public void onCollide(Entity entity, World.WorldContext context, AssetLoader al, GameState gameState) {
         if (entity instanceof Asteroid || entity instanceof EnemyBullet) {
             if (shield == 10) {
                 shield = 0;

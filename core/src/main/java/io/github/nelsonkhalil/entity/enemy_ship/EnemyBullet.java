@@ -59,7 +59,7 @@ public class EnemyBullet implements Entity {
     }
 
     @Override
-    public void onCollide(Entity entity, AssetLoader al, GameState gameState) {
+    public void onCollide(Entity entity, World.WorldContext context, AssetLoader al, GameState gameState) {
         if (entity instanceof Player || entity instanceof Asteroid) {
             if (entity instanceof Player) {
                 al.getSound(FileSound.PLAYER_HIT).play();

@@ -1,6 +1,7 @@
 package io.github.nelsonkhalil.entity.asteroid;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.World;
 import io.github.nelsonkhalil.assetmanager.AssetLoader;
@@ -9,6 +10,9 @@ import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
+import io.github.nelsonkhalil.entity.particle.BlackSmokeParticleInfo;
+import io.github.nelsonkhalil.entity.particle.ExplosionParticleInfo;
+import io.github.nelsonkhalil.entity.particle.PartialGeneralParticleInfo;
 import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
@@ -56,10 +60,11 @@ public class Asteroid implements Entity {
     }
 
     @Override
-    public void onCollide(Entity entity, AssetLoader al, GameState gameState) {
+    public void onCollide(Entity entity, World.WorldContext context, AssetLoader al, GameState gameState) {
         if (entity instanceof Bullet || entity instanceof EnemyBullet || entity instanceof Player) {
             if (entity instanceof Player) {
                 health = 0;
+                explode(context);
                 al.getSound(FileSound.ASTEROID_PLAYER_COLLIDE).play();
                 return;
             }
@@ -68,10 +73,26 @@ public class Asteroid implements Entity {
             if (health == 0) {
                 al.getSound(FileSound.ASTEROID_DEATH).play();
                 gameState.addScore(30);
+                explode(context);
             } else {
                 al.getSound(FileSound.ASTEROID_HIT).play();
                 gameState.addScore(5);
             }
+        }
+    }
+
+    private void explode(World.WorldContext context) {
+        for (int i = 0; i < 20; i++) {
+            context.createBlackSmokeParticle(
+                new PartialGeneralParticleInfo(position).withRandomVel(MathUtils.random(40, 100)),
+                new BlackSmokeParticleInfo(size / 500)
+            );
+        }
+        for (int i = 0; i < 20; i++) {
+            context.createExplosionParticle(
+                new PartialGeneralParticleInfo(position).withRandomVel(MathUtils.random(20, 75)),
+                new ExplosionParticleInfo(size / 250)
+            );
         }
     }
 

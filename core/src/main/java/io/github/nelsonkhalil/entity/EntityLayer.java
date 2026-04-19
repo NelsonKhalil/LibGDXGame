@@ -9,6 +9,7 @@ import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyShip;
+import io.github.nelsonkhalil.entity.particle.*;
 import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
@@ -50,7 +51,7 @@ public class EntityLayer {
             entity.update(dt, context, assetLoader, gameState);
         }
 
-        onCollisionAll();
+        onCollisionAll(context);
         entities.removeIf(Entity::shouldRemove);
     }
 
@@ -77,14 +78,14 @@ public class EntityLayer {
         return map;
     }
 
-    private void onCollisionAll() {
+    private void onCollisionAll(World.WorldContext context) {
         Map<Entity, CollisionShape> collisionShapeMap = getCollisionShapeMap();
         for (Entity entity : entities) {
             for (Entity other : entities) {
                 if (entity == other) continue;
                 if (!collisionShapeMap.containsKey(entity) || !collisionShapeMap.containsKey(other)) continue;
                 if (collisionShapeMap.get(entity).intersects(collisionShapeMap.get(other)))
-                    entity.onCollide(other, assetLoader, gameState);
+                    entity.onCollide(other, context, assetLoader, gameState);
             }
         }
     }
@@ -133,5 +134,16 @@ public class EntityLayer {
         return enemyBullet;
     }
 
+    public ExplosionParticle createExplosionParticle(PartialGeneralParticleInfo ginfo, ExplosionParticleInfo info) {
+        ExplosionParticle explosionParticle = new ExplosionParticle(ginfo, info, assetLoader);
+        addEntity(explosionParticle);
+        return explosionParticle;
+    }
+
+    public BlackSmokeParticle createBlackSmokeParticle(PartialGeneralParticleInfo ginfo, BlackSmokeParticleInfo info) {
+        BlackSmokeParticle blackSmokeParticle = new BlackSmokeParticle(ginfo, info, assetLoader);
+        addEntity(blackSmokeParticle);
+        return blackSmokeParticle;
+    }
 
 }
