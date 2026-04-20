@@ -16,10 +16,13 @@ public class GameOverScreen implements Screen {
     private static final String[] messages = new String[]{
         "Better luck next time",
         "Nice try",
-        "Maybe trying aiming",
+        "Maybe try aiming",
         "Just give it a few years",
         "Never give up",
-        "Oof"
+        "Oof",
+        "You almost had it",
+        "So close, yet so far",
+        "Interesting approach"
     };
 
     private final DrawContext drawContext;
