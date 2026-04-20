@@ -64,6 +64,19 @@ public enum MultiFileTexture {
         FileTexture.EXPLOSION_6,
         FileTexture.EXPLOSION_7,
         FileTexture.EXPLOSION_8
+    ),
+
+    NUMBERS(
+        FileTexture.NUM_0,
+        FileTexture.NUM_1,
+        FileTexture.NUM_2,
+        FileTexture.NUM_3,
+        FileTexture.NUM_4,
+        FileTexture.NUM_5,
+        FileTexture.NUM_6,
+        FileTexture.NUM_7,
+        FileTexture.NUM_8,
+        FileTexture.NUM_9
     );
 
     public final FileTexture[] textures;
