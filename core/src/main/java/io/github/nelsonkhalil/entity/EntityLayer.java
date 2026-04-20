@@ -11,6 +11,8 @@ import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyShip;
 import io.github.nelsonkhalil.entity.particle.*;
 import io.github.nelsonkhalil.entity.player.Player;
+import io.github.nelsonkhalil.entity.powerup.PowerupEntity;
+import io.github.nelsonkhalil.powerup.PowerupType;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
 
@@ -132,6 +134,12 @@ public class EntityLayer {
         EnemyBullet enemyBullet = new EnemyBullet(position, assetLoader);
         addEntity(enemyBullet);
         return enemyBullet;
+    }
+
+    public PowerupEntity createPowerup(Vector2 position, PowerupType type) {
+        PowerupEntity powerupEntity = new PowerupEntity(position, type, assetLoader);
+        addEntity(powerupEntity);
+        return powerupEntity;
     }
 
     public ExplosionParticle createExplosionParticle(PartialGeneralParticleInfo ginfo, ExplosionParticleInfo info) {

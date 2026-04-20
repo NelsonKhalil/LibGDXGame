@@ -8,11 +8,13 @@ import io.github.nelsonkhalil.World;
 import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.entity.entity_spawner.AsteroidSpawner;
 import io.github.nelsonkhalil.entity.entity_spawner.EnemyShipSpawner;
+import io.github.nelsonkhalil.entity.entity_spawner.PowerupSpawner;
 import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.render.Background;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.render.hud.LifeDisplay;
 import io.github.nelsonkhalil.render.hud.NumberDisplay;
+import io.github.nelsonkhalil.render.hud.PowerupDisplay;
 import io.github.nelsonkhalil.state.GameState;
 
 public class InGameScreen implements Screen {
@@ -24,6 +26,7 @@ public class InGameScreen implements Screen {
 
     private final NumberDisplay scoreDisplay;
     private final LifeDisplay lifeDisplay;
+    private final PowerupDisplay powerupDisplay;
 
     private final World world;
     private Player player;
@@ -32,6 +35,7 @@ public class InGameScreen implements Screen {
 
     private AsteroidSpawner asteroidSpawner;
     private EnemyShipSpawner enemyShipSpawner;
+    private PowerupSpawner powerupSpawner;
 
     private final AssetLoader assetLoader;
 
@@ -42,18 +46,20 @@ public class InGameScreen implements Screen {
 
         background = new Background(assetLoader);
 
-        scoreDisplay = new NumberDisplay(new Vector2(Main.VIEW_WIDTH - 30, Main.VIEW_HEIGHT - 40), assetLoader);
-        lifeDisplay = new LifeDisplay(new Vector2(Main.VIEW_WIDTH - 30, Main.VIEW_HEIGHT - 80), assetLoader);
-
         gameState = new GameState();
         world = new World(assetLoader, gameState);
 
         startGame();
+
+        scoreDisplay = new NumberDisplay(new Vector2(Main.VIEW_WIDTH - 30, Main.VIEW_HEIGHT - 40), assetLoader);
+        lifeDisplay = new LifeDisplay(new Vector2(Main.VIEW_WIDTH - 30, Main.VIEW_HEIGHT - 80), assetLoader);
+        powerupDisplay = new PowerupDisplay(new Vector2(10, Main.VIEW_HEIGHT - 40), player.powerupLayer, assetLoader);
     }
 
     private void startGame() {
         asteroidSpawner = new AsteroidSpawner();
         enemyShipSpawner = new EnemyShipSpawner();
+        powerupSpawner = new PowerupSpawner();
 
         world.clear();
         gameState.reset();
@@ -68,6 +74,7 @@ public class InGameScreen implements Screen {
 
         asteroidSpawner.spawnUpdate(dt, context);
         enemyShipSpawner.spawnUpdate(dt, context);
+        powerupSpawner.spawnUpdate(dt, context);
 
         if (gameState.gameOver()) {
             screenHost.setScreen(new GameOverScreen(assetLoader, gameState));
@@ -86,6 +93,7 @@ public class InGameScreen implements Screen {
         world.render(drawContext);
         scoreDisplay.render(drawContext, gameState.getScore());
         lifeDisplay.render(drawContext, gameState.getLives());
+        powerupDisplay.render(drawContext);
 
         drawContext.end();
     }

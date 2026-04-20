@@ -10,6 +10,8 @@ import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyShip;
 import io.github.nelsonkhalil.entity.particle.*;
 import io.github.nelsonkhalil.entity.player.Player;
+import io.github.nelsonkhalil.entity.powerup.PowerupEntity;
+import io.github.nelsonkhalil.powerup.PowerupType;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
 
@@ -67,6 +69,10 @@ public class World {
 
         public EnemyShip createEnemyShip(Vector2 position) {
             return entityLayer.createEnemyShip(position);
+        }
+
+        public PowerupEntity createPowerupEntity(Vector2 position, PowerupType type) {
+            return entityLayer.createPowerup(position, type);
         }
 
         public ExplosionParticle createExplosionParticle(PartialGeneralParticleInfo ginfo, ExplosionParticleInfo info) {

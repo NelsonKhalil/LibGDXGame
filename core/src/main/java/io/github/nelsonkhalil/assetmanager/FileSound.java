@@ -6,6 +6,9 @@ public enum FileSound {
     PLAYER_HIT_SHIELD("player/player_hit_shield.wav"),
     PLAYER_DEATH("player/player_death.wav"),
 
+    POWER_UP("power_up/power_up.wav"),
+    POWER_UP_FAIL("power_up/power_up_fail.wav"),
+
     ENEMY_SHIP_SHOOT("enemy_ship/enemy_shoot.wav"),
     ENEMY_SHIP_HIT("enemy_ship/enemy_hit.wav"),
     ENEMY_SHIP_DEATH("enemy_ship/enemy_death.wav"),

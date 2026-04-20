@@ -1,6 +1,8 @@
 package io.github.nelsonkhalil.state;
 
 public class GameState {
+    private static final int MAX_LIVES = 3;
+
     private int score;
     private int lives;
 
@@ -10,7 +12,7 @@ public class GameState {
 
     public void reset() {
         score = 0;
-        lives = 3;
+        lives = MAX_LIVES;
     }
 
     public void addScore(int score) {
@@ -31,5 +33,9 @@ public class GameState {
 
     public boolean gameOver() {
         return lives == 0;
+    }
+
+    public void addLife() {
+        lives = Math.min(lives + 1, MAX_LIVES);
     }
 }
