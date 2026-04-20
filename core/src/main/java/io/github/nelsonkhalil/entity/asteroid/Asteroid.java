@@ -14,6 +14,8 @@ import io.github.nelsonkhalil.entity.particle.BlackSmokeParticleInfo;
 import io.github.nelsonkhalil.entity.particle.ExplosionParticleInfo;
 import io.github.nelsonkhalil.entity.particle.PartialGeneralParticleInfo;
 import io.github.nelsonkhalil.entity.player.Player;
+import io.github.nelsonkhalil.helper.ListHelper;
+import io.github.nelsonkhalil.powerup.PowerupType;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
 
@@ -73,6 +75,9 @@ public class Asteroid implements Entity {
             if (health == 0) {
                 al.getSound(FileSound.ASTEROID_DEATH).play();
                 gameState.addScore(30);
+                if (MathUtils.randomBoolean(0.05F)) {
+                    context.createPowerupEntity(position, ListHelper.randomEntry(PowerupType.values()));
+                }
                 explode(context);
             } else {
                 al.getSound(FileSound.ASTEROID_HIT).play();

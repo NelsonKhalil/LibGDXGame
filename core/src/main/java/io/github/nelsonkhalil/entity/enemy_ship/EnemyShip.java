@@ -15,7 +15,9 @@ import io.github.nelsonkhalil.entity.particle.BlackSmokeParticleInfo;
 import io.github.nelsonkhalil.entity.particle.ExplosionParticleInfo;
 import io.github.nelsonkhalil.entity.particle.PartialGeneralParticleInfo;
 import io.github.nelsonkhalil.entity.player.Player;
+import io.github.nelsonkhalil.helper.ListHelper;
 import io.github.nelsonkhalil.helper.VectorHelper;
+import io.github.nelsonkhalil.powerup.PowerupType;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
 
@@ -121,6 +123,10 @@ public class EnemyShip implements Entity {
                 al.getSound(FileSound.ENEMY_SHIP_DEATH).play();
                 explode(context);
                 gameState.addScore(100);
+
+                if (MathUtils.randomBoolean(0.50F)) {
+                    context.createPowerupEntity(position, ListHelper.randomEntry(PowerupType.values()));
+                }
             }
         }
     }

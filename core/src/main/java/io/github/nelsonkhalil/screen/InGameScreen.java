@@ -8,7 +8,6 @@ import io.github.nelsonkhalil.World;
 import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.entity.entity_spawner.AsteroidSpawner;
 import io.github.nelsonkhalil.entity.entity_spawner.EnemyShipSpawner;
-import io.github.nelsonkhalil.entity.entity_spawner.PowerupSpawner;
 import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.render.Background;
 import io.github.nelsonkhalil.render.DrawContext;
@@ -35,7 +34,6 @@ public class InGameScreen implements Screen {
 
     private AsteroidSpawner asteroidSpawner;
     private EnemyShipSpawner enemyShipSpawner;
-    private PowerupSpawner powerupSpawner;
 
     private final AssetLoader assetLoader;
 
@@ -59,7 +57,6 @@ public class InGameScreen implements Screen {
     private void startGame() {
         asteroidSpawner = new AsteroidSpawner();
         enemyShipSpawner = new EnemyShipSpawner();
-        powerupSpawner = new PowerupSpawner();
 
         world.clear();
         gameState.reset();
@@ -74,7 +71,6 @@ public class InGameScreen implements Screen {
 
         asteroidSpawner.spawnUpdate(dt, context);
         enemyShipSpawner.spawnUpdate(dt, context);
-        powerupSpawner.spawnUpdate(dt, context);
 
         if (gameState.gameOver()) {
             screenHost.setScreen(new GameOverScreen(assetLoader, gameState));
