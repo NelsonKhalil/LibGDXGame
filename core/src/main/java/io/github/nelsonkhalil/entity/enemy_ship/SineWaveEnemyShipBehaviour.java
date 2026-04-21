@@ -25,7 +25,7 @@ public class SineWaveEnemyShipBehaviour implements EnemyShipBehaviourStrategy {
         Vector2 moveVector = new Vector2();
 
         Vector2 playerPosition = player.getPosition();
-        float dist = position.dst(playerPosition);
+        float dist = position.y - playerPosition.y;
 
         Vector2 move = playerPosition.cpy().sub(position);
         float sine = (float) Math.sin(timer);
