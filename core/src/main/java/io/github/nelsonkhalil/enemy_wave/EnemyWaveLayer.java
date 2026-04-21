@@ -27,11 +27,12 @@ public class EnemyWaveLayer {
     }
 
     public void update(float dt, World.WorldContext context) {
-        if (currentWave == null) { //TODO: ADD WAVE END LOGIC
+        if (currentWave == null) {
             currentWave = waves.poll();
             if (currentWave == null) return;
         }
         currentWave.update(dt, context);
+        if (currentWave.hasEnded()) currentWave = null;
     }
 
     public boolean done() {

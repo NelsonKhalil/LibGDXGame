@@ -2,8 +2,11 @@ package io.github.nelsonkhalil.enemy_wave;
 
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.World;
+import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.enemy_ship.behaviour.util.EnemyShipBehaviour;
 import io.github.nelsonkhalil.entity.enemy_ship.behaviour.util.EnemyShipBehaviourFactory;
+
+import java.util.List;
 
 public class EnemyWaveShipNode implements EnemyWaveNode {
 
@@ -28,8 +31,9 @@ public class EnemyWaveShipNode implements EnemyWaveNode {
     }
 
     @Override
-    public void start(World.WorldContext context) {
-        context.createEnemyShip(position, behaviour);
+    public EnemyWaveNodeReturnable start(World.WorldContext context) {
+        Entity enemy = context.createEnemyShip(position, behaviour);
+        return new EnemyWaveNodeReturnable(List.of(enemy));
     }
 
     @Override

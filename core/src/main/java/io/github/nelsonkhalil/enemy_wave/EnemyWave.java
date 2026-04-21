@@ -2,9 +2,12 @@ package io.github.nelsonkhalil.enemy_wave;
 
 import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.World;
+import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.enemy_ship.behaviour.util.EnemyShipBehaviourFactory;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 public class EnemyWave {
@@ -13,19 +16,30 @@ public class EnemyWave {
     private final Queue<EnemyWaveNode> nodes;
     private EnemyWaveNode currentNode;
 
+    private final List<Entity> entities;
+
     private EnemyWave(Queue<EnemyWaveNode> nodes) {
         this.nodes = nodes;
         currentNode = null;
+        entities = new ArrayList<>();
     }
 
     public void update(float dt, World.WorldContext context) {
+        entities.removeIf(Entity::shouldRemove);
+        Main.log(entities.size());
+
         if (currentNode == null || !currentNode.shouldBlock()) {
             currentNode = nodes.poll();
             if (currentNode == null) return;
 
-            currentNode.start(context);
+            EnemyWaveNodeReturnable returnable = currentNode.start(context);
+            entities.addAll(returnable.addedEntities());
         }
         currentNode.update(dt);
+    }
+
+    public boolean hasEnded() {
+        return entities.isEmpty() && currentNode == null;
     }
 
     public static class Builder {

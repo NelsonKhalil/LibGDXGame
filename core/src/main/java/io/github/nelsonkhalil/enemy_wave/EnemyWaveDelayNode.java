@@ -18,8 +18,8 @@ public class EnemyWaveDelayNode implements EnemyWaveNode {
     }
 
     @Override
-    public void start(World.WorldContext context) {
-
+    public EnemyWaveNodeReturnable start(World.WorldContext context) {
+        return new EnemyWaveNodeReturnable();
     }
 
     @Override
