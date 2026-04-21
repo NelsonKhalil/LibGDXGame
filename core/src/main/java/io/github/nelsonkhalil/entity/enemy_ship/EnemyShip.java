@@ -104,6 +104,17 @@ public class EnemyShip implements Entity {
                 }
             }
         }
+        if (entity instanceof Player) {
+            health = 0;
+            al.getSound(FileSound.ENEMY_SHIP_DEATH).play();
+            explode(context);
+            gameState.addScore(50);
+
+
+            if (MathUtils.randomBoolean(0.25F)) {
+                context.createPowerupEntity(position, ListHelper.randomEntry(PowerupType.values()));
+            }
+        }
     }
 
     private void explode(World.WorldContext context) {

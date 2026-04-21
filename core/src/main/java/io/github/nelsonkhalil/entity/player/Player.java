@@ -14,6 +14,7 @@ import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.asteroid.Asteroid;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
+import io.github.nelsonkhalil.entity.enemy_ship.EnemyShip;
 import io.github.nelsonkhalil.entity.powerup.PowerupEntity;
 import io.github.nelsonkhalil.powerup.PowerupLayer;
 import io.github.nelsonkhalil.powerup.PowerupType;
@@ -134,7 +135,7 @@ public class Player implements Entity {
 
     @Override
     public void onCollide(Entity entity, World.WorldContext context, AssetLoader al, GameState gameState) {
-        if (entity instanceof Asteroid || entity instanceof EnemyBullet) {
+        if (entity instanceof Asteroid || entity instanceof EnemyBullet || entity instanceof EnemyShip) {
             boolean hasInvulnerability = powerupLayer.contains(PowerupType.INVULNERABILITY);
 
             if (shield == 10) {
