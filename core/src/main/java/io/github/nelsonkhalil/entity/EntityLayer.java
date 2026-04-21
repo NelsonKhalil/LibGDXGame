@@ -9,7 +9,7 @@ import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
 import io.github.nelsonkhalil.entity.enemy_ship.EnemyShip;
-import io.github.nelsonkhalil.entity.enemy_ship.EnemyShipBehaviourStrategy;
+import io.github.nelsonkhalil.entity.enemy_ship.EnemyShipBehaviour;
 import io.github.nelsonkhalil.entity.particle.*;
 import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.entity.powerup.PowerupEntity;
@@ -125,7 +125,7 @@ public class EntityLayer {
         return asteroid;
     }
 
-    public EnemyShip createEnemyShip(Vector2 position, EnemyShipBehaviourStrategy behaviourStrategy) {
+    public EnemyShip createEnemyShip(Vector2 position, EnemyShipBehaviour behaviourStrategy) {
         EnemyShip enemyShip = new EnemyShip(position, behaviourStrategy, assetLoader);
         addEntity(enemyShip);
         return enemyShip;

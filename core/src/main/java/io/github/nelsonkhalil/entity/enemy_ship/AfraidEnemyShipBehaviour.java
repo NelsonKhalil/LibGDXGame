@@ -8,7 +8,7 @@ import io.github.nelsonkhalil.assetmanager.FileSound;
 import io.github.nelsonkhalil.entity.ShootCooldown;
 import io.github.nelsonkhalil.entity.player.Player;
 
-public class AfraidEnemyShipBehaviour implements EnemyShipBehaviourStrategy {
+public class AfraidEnemyShipBehaviour implements EnemyShipBehaviour {
     private static final float SPEED = 2F;
 
     private int sequencedShots;

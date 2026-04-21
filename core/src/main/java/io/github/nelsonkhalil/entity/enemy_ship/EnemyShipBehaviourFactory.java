@@ -3,7 +3,7 @@ package io.github.nelsonkhalil.entity.enemy_ship;
 public class EnemyShipBehaviourFactory {
     private EnemyShipBehaviourFactory() {}
 
-    public static EnemyShipBehaviourStrategy getStrategy(Type type) {
+    public static EnemyShipBehaviour getStrategy(Type type) {
         return switch (type) {
             case BASIC -> new BasicEnemyShipBehaviour();
             case KAMIKAZE -> new KamikazeEnemyShipBehaviour();

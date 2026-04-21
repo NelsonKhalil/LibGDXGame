@@ -33,12 +33,12 @@ public class EnemyShip implements Entity {
     private final float size;
     private final Vector2 position;
 
-    private final EnemyShipBehaviourStrategy behaviourStrategy;
+    private final EnemyShipBehaviour behaviourStrategy;
 
     private int health;
     private ShootCooldown shootCooldown;
 
-    public EnemyShip(Vector2 position, EnemyShipBehaviourStrategy behaviourStrategy, AssetLoader al) {
+    public EnemyShip(Vector2 position, EnemyShipBehaviour behaviourStrategy, AssetLoader al) {
         this.position = position.cpy();
         this.behaviourStrategy = behaviourStrategy;
         spriteTexture = al.getTexture(FileTexture.ENEMY_SHIP);
