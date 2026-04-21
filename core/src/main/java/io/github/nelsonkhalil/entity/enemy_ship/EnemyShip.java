@@ -44,7 +44,7 @@ public class EnemyShip implements Entity {
         spriteTexture = al.getTexture(FileTexture.ENEMY_SHIP);
         size = spriteTexture.getWidth();
         sprite = new Sprite(spriteTexture);
-        health = 5;
+        health = 4;
         shootCooldown = new ShootCooldown();
     }
 

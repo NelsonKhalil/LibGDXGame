@@ -55,9 +55,9 @@ public class AfraidEnemyShipBehaviour implements EnemyShipBehaviourStrategy {
 
             shootCooldown.set(MathUtils.random(20, 30));
 
-            sequencedShotCooldown = 0.25F;
+            sequencedShotCooldown = 0.1F;
             if (sequencedShots == 0) {
-                sequencedShots = 3;
+                sequencedShots = 5;
                 sequencedShotCooldown = 1;
             } else {
                 sequencedShots--;
