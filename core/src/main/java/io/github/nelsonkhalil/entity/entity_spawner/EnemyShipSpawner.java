@@ -19,6 +19,6 @@ public class EnemyShipSpawner extends SimpleEntitySpawner {
         context.createEnemyShip(new Vector2(
             MathUtils.random(Main.VIEW_WIDTH),
             Main.VIEW_HEIGHT + 200
-        ), EnemyShipBehaviourFactory.getStrategy(ListHelper.randomEntry(EnemyShipBehaviourFactory.Type.values())));
+        ), EnemyShipBehaviourFactory.getBehaviour(ListHelper.randomEntry(EnemyShipBehaviourFactory.Type.values())));
     }
 }

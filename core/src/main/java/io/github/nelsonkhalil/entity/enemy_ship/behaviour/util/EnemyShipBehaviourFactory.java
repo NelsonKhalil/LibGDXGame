@@ -8,7 +8,7 @@ import io.github.nelsonkhalil.entity.enemy_ship.behaviour.SineWaveEnemyShipBehav
 public class EnemyShipBehaviourFactory {
     private EnemyShipBehaviourFactory() {}
 
-    public static EnemyShipBehaviour getStrategy(Type type) {
+    public static EnemyShipBehaviour getBehaviour(Type type) {
         return switch (type) {
             case BASIC -> new BasicEnemyShipBehaviour();
             case KAMIKAZE -> new KamikazeEnemyShipBehaviour();
