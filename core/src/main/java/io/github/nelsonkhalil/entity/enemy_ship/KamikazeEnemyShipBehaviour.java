@@ -9,6 +9,10 @@ import io.github.nelsonkhalil.entity.player.Player;
 public class KamikazeEnemyShipBehaviour implements EnemyShipBehaviourStrategy {
     private static final float SPEED = 2.5F;
 
+    public KamikazeEnemyShipBehaviour() {
+
+    }
+
     @Override
     public void update(float dt, float size, Vector2 position, Player player, ShootCooldown shootCooldown, World.WorldContext context, AssetLoader al) {
         float moveSpeed = dt * size * SPEED;
