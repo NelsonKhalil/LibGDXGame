@@ -1,4 +1,4 @@
-package io.github.nelsonkhalil.entity.enemy_ship;
+package io.github.nelsonkhalil.entity.enemy_ship.entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -12,6 +12,9 @@ import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.ShootCooldown;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
+import io.github.nelsonkhalil.entity.enemy_ship.behaviour.util.EnemyShipActionReturnable;
+import io.github.nelsonkhalil.entity.enemy_ship.behaviour.util.EnemyShipBehaviour;
+import io.github.nelsonkhalil.entity.enemy_ship.behaviour.util.EnemyShipBehaviourContext;
 import io.github.nelsonkhalil.entity.particle.BlackSmokeParticleInfo;
 import io.github.nelsonkhalil.entity.particle.ExplosionParticleInfo;
 import io.github.nelsonkhalil.entity.particle.PartialGeneralParticleInfo;
@@ -33,14 +36,14 @@ public class EnemyShip implements Entity {
     private final float size;
     private final Vector2 position;
 
-    private final EnemyShipBehaviour behaviourStrategy;
+    private final EnemyShipBehaviour behaviour;
 
     private int health;
     private ShootCooldown shootCooldown;
 
-    public EnemyShip(Vector2 position, EnemyShipBehaviour behaviourStrategy, AssetLoader al) {
+    public EnemyShip(Vector2 position, EnemyShipBehaviour behaviour, AssetLoader al) {
         this.position = position.cpy();
-        this.behaviourStrategy = behaviourStrategy;
+        this.behaviour = behaviour;
         spriteTexture = al.getTexture(FileTexture.ENEMY_SHIP);
         size = spriteTexture.getWidth();
         sprite = new Sprite(spriteTexture);
@@ -56,11 +59,20 @@ public class EnemyShip implements Entity {
         Player player = optionalPlayer.get();
 
         shootCooldown.update(dt);
-        behaviourStrategy.update(dt, size, position, player, shootCooldown, context, al);
+        EnemyShipActionReturnable returnable = behaviour.update(dt, new EnemyShipBehaviourContext(size, position, player, context, al));
+        position.add(returnable.movement);
 
-        float offsetX = 0;
-        float offsetY = -200;
-        VectorHelper.clampToView(position, offsetX, offsetY);
+        if (returnable.shoot) {
+            Vector2 bulletPosition = position.cpy();
+            bulletPosition.add(0, size / -2 + 20);
+            context.createEnemyBullet(bulletPosition);
+
+            al.getSound(FileSound.ENEMY_SHIP_SHOOT).play();
+        }
+
+        //float offsetX = 0;
+        //float offsetY = -200;
+        //VectorHelper.clampToView(position, offsetX, offsetY);
     }
 
     @Override

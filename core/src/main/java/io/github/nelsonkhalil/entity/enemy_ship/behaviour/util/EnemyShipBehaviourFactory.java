@@ -1,4 +1,9 @@
-package io.github.nelsonkhalil.entity.enemy_ship;
+package io.github.nelsonkhalil.entity.enemy_ship.behaviour.util;
+
+import io.github.nelsonkhalil.entity.enemy_ship.behaviour.AfraidEnemyShipBehaviour;
+import io.github.nelsonkhalil.entity.enemy_ship.behaviour.BasicEnemyShipBehaviour;
+import io.github.nelsonkhalil.entity.enemy_ship.behaviour.KamikazeEnemyShipBehaviour;
+import io.github.nelsonkhalil.entity.enemy_ship.behaviour.SineWaveEnemyShipBehaviour;
 
 public class EnemyShipBehaviourFactory {
     private EnemyShipBehaviourFactory() {}

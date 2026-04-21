@@ -9,7 +9,7 @@ import io.github.nelsonkhalil.assetmanager.FileSound;
 import io.github.nelsonkhalil.entity.Entity;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
-import io.github.nelsonkhalil.entity.enemy_ship.EnemyBullet;
+import io.github.nelsonkhalil.entity.enemy_ship.entity.EnemyBullet;
 import io.github.nelsonkhalil.entity.particle.BlackSmokeParticleInfo;
 import io.github.nelsonkhalil.entity.particle.ExplosionParticleInfo;
 import io.github.nelsonkhalil.entity.particle.PartialGeneralParticleInfo;

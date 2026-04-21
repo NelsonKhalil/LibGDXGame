@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.World;
-import io.github.nelsonkhalil.entity.enemy_ship.EnemyShipBehaviourFactory;
+import io.github.nelsonkhalil.entity.enemy_ship.behaviour.util.EnemyShipBehaviourFactory;
 import io.github.nelsonkhalil.helper.ListHelper;
 
 public class EnemyShipSpawner extends SimpleEntitySpawner {
