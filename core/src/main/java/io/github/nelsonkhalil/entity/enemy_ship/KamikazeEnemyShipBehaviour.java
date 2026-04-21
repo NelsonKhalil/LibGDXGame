@@ -7,7 +7,7 @@ import io.github.nelsonkhalil.entity.ShootCooldown;
 import io.github.nelsonkhalil.entity.player.Player;
 
 public class KamikazeEnemyShipBehaviour implements EnemyShipBehaviourStrategy {
-    private static final float SPEED = 2.75F;
+    private static final float SPEED = 2.5F;
 
     public KamikazeEnemyShipBehaviour() {
 

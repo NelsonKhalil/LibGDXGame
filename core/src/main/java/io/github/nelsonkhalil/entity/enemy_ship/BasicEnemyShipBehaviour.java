@@ -9,7 +9,7 @@ import io.github.nelsonkhalil.entity.ShootCooldown;
 import io.github.nelsonkhalil.entity.player.Player;
 
 public class BasicEnemyShipBehaviour implements EnemyShipBehaviourStrategy {
-    private static final float SPEED = 2F;
+    private static final float SPEED = 1.75F;
 
     public BasicEnemyShipBehaviour() {
 
