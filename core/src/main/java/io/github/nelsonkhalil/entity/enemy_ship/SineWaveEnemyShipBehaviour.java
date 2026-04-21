@@ -9,7 +9,7 @@ import io.github.nelsonkhalil.entity.ShootCooldown;
 import io.github.nelsonkhalil.entity.player.Player;
 
 public class SineWaveEnemyShipBehaviour implements EnemyShipBehaviourStrategy {
-    private static final float SPEED = 3F;
+    private static final float SPEED = 3.5F;
 
     private float timer;
 
@@ -49,7 +49,7 @@ public class SineWaveEnemyShipBehaviour implements EnemyShipBehaviourStrategy {
             context.createEnemyBullet(bulletPosition);
 
             al.getSound(FileSound.ENEMY_SHIP_SHOOT).play();
-            shootCooldown.set(MathUtils.random(0.75F, 2));
+            shootCooldown.set(MathUtils.random(1.5F, 2.75F));
         }
     }
 }

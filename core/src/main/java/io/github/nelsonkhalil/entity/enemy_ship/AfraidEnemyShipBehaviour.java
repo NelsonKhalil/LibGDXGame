@@ -29,9 +29,9 @@ public class AfraidEnemyShipBehaviour implements EnemyShipBehaviourStrategy {
 
         Vector2 move = playerPosition.cpy().sub(position);
 
-        if (dist > 800) {
+        if (dist > 600) {
             moveVector.add(move.x / 4, move.y);
-        } else if (dist > 450) {
+        } else if (dist > 550) {
             moveVector.add(move.x * ((shootCooldown.isZero() || sequencedShots != 0) ? 1 : -1), -move.y / 10);
         } else {
             moveSpeed *= 3;
@@ -45,7 +45,7 @@ public class AfraidEnemyShipBehaviour implements EnemyShipBehaviourStrategy {
         sequencedShotCooldown = Math.max(0, sequencedShotCooldown - dt);
 
         float xDist = Math.abs(playerPosition.x - position.x);
-        if (xDist < 10 && (shootCooldown.isZero() || (sequencedShotCooldown == 0 && sequencedShots != 0))) {
+        if ((xDist < 10 && shootCooldown.isZero()) || (sequencedShotCooldown == 0 && sequencedShots != 0)) {
             Vector2 bulletPosition = position.cpy();
 
             bulletPosition.add(0, size / -2 + 20);
@@ -55,9 +55,10 @@ public class AfraidEnemyShipBehaviour implements EnemyShipBehaviourStrategy {
 
             shootCooldown.set(MathUtils.random(20, 30));
 
-            sequencedShotCooldown = 1;
+            sequencedShotCooldown = 0.25F;
             if (sequencedShots == 0) {
                 sequencedShots = 3;
+                sequencedShotCooldown = 1;
             } else {
                 sequencedShots--;
             }

@@ -25,10 +25,10 @@ public class BasicEnemyShipBehaviour implements EnemyShipBehaviourStrategy {
 
         Vector2 move = playerPosition.cpy().sub(position);
 
-        if (dist > 600) {
+        if (dist > 400) {
             moveVector.add(move.x / 4, move.y);
-        } else if (dist > 400) {
-            moveVector.add(move.x * (1 + (-shootCooldown.get() * 1)), move.y / 10);
+        } else if (dist > 200) {
+            moveVector.add(move.x * (1 + (-shootCooldown.get() * 2)), move.y / 10);
         } else {
             moveVector.add(move.x / 10, -move.y);
         }
