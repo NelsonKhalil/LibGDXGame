@@ -16,9 +16,9 @@ import io.github.nelsonkhalil.entity.collision.CollisionShape;
 import io.github.nelsonkhalil.entity.enemy_ship.entity.EnemyBullet;
 import io.github.nelsonkhalil.entity.enemy_ship.entity.EnemyShip;
 import io.github.nelsonkhalil.entity.powerup.PowerupEntity;
+import io.github.nelsonkhalil.helper.VectorHelper;
 import io.github.nelsonkhalil.powerup.PowerupLayer;
 import io.github.nelsonkhalil.powerup.PowerupType;
-import io.github.nelsonkhalil.helper.VectorHelper;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
 

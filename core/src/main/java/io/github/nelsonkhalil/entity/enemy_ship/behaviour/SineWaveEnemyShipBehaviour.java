@@ -2,14 +2,9 @@ package io.github.nelsonkhalil.entity.enemy_ship.behaviour;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import io.github.nelsonkhalil.World;
-import io.github.nelsonkhalil.assetmanager.AssetLoader;
-import io.github.nelsonkhalil.assetmanager.FileSound;
-import io.github.nelsonkhalil.entity.ShootCooldown;
 import io.github.nelsonkhalil.entity.enemy_ship.behaviour.util.EnemyShipActionReturnable;
 import io.github.nelsonkhalil.entity.enemy_ship.behaviour.util.EnemyShipBehaviour;
 import io.github.nelsonkhalil.entity.enemy_ship.behaviour.util.EnemyShipBehaviourContext;
-import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.util.Timer;
 
 public class SineWaveEnemyShipBehaviour implements EnemyShipBehaviour {

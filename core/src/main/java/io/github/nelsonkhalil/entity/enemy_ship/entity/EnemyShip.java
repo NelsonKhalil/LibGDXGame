@@ -9,7 +9,6 @@ import io.github.nelsonkhalil.assetmanager.AssetLoader;
 import io.github.nelsonkhalil.assetmanager.FileSound;
 import io.github.nelsonkhalil.assetmanager.FileTexture;
 import io.github.nelsonkhalil.entity.Entity;
-import io.github.nelsonkhalil.entity.ShootCooldown;
 import io.github.nelsonkhalil.entity.bullet.Bullet;
 import io.github.nelsonkhalil.entity.collision.CollisionShape;
 import io.github.nelsonkhalil.entity.enemy_ship.behaviour.util.EnemyShipActionReturnable;
@@ -20,7 +19,6 @@ import io.github.nelsonkhalil.entity.particle.ExplosionParticleInfo;
 import io.github.nelsonkhalil.entity.particle.PartialGeneralParticleInfo;
 import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.helper.ListHelper;
-import io.github.nelsonkhalil.helper.VectorHelper;
 import io.github.nelsonkhalil.powerup.PowerupType;
 import io.github.nelsonkhalil.render.DrawContext;
 import io.github.nelsonkhalil.state.GameState;
@@ -28,8 +26,6 @@ import io.github.nelsonkhalil.state.GameState;
 import java.util.Optional;
 
 public class EnemyShip implements Entity {
-
-    private static final float SPEED = 2F;
 
     private final Texture spriteTexture;
     private final Sprite sprite;
@@ -39,7 +35,6 @@ public class EnemyShip implements Entity {
     private final EnemyShipBehaviour behaviour;
 
     private int health;
-    private ShootCooldown shootCooldown;
 
     public EnemyShip(Vector2 position, EnemyShipBehaviour behaviour, AssetLoader al) {
         this.position = position.cpy();
@@ -48,7 +43,6 @@ public class EnemyShip implements Entity {
         size = spriteTexture.getWidth();
         sprite = new Sprite(spriteTexture);
         health = 4;
-        shootCooldown = new ShootCooldown();
     }
 
     @Override
@@ -58,7 +52,6 @@ public class EnemyShip implements Entity {
         if (optionalPlayer.isEmpty()) return;
         Player player = optionalPlayer.get();
 
-        shootCooldown.update(dt);
         EnemyShipActionReturnable returnable = behaviour.update(dt, new EnemyShipBehaviourContext(size, position, player, context, al));
         position.add(returnable.movement);
 
