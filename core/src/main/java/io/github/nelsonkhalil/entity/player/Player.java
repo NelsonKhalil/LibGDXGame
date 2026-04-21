@@ -24,6 +24,7 @@ import io.github.nelsonkhalil.state.GameState;
 
 public class Player implements Entity {
     private static final float SPEED = 4;
+    private static final float MAX_SHIELD = 10;
 
     public final PowerupLayer powerupLayer;
 
@@ -51,7 +52,7 @@ public class Player implements Entity {
         sprite = new Sprite(spriteTexture);
         sprite.setOriginCenter();
 
-        shield = 10;
+        shield = MAX_SHIELD;
 
         shootCooldown = 0;
 
@@ -100,7 +101,7 @@ public class Player implements Entity {
             shootCooldown = 0.5F;
         }
 
-        shield = Math.min(shield + dt, 10);
+        shield = Math.min(shield + dt, MAX_SHIELD);
         powerupLayer.updateAll(dt);
     }
 
@@ -110,7 +111,7 @@ public class Player implements Entity {
         sprite.draw(context.batch);
         Texture shieldSprite = shield1;
         if (shield > 5) shieldSprite = shield2;
-        if (shield == 10) shieldSprite = shield3;
+        if (shield == MAX_SHIELD) shieldSprite = shield3;
         context.batch.draw(shieldSprite, position.x - (shieldSprite.getWidth() / 2F), position.y - (shieldSprite.getHeight() / 2F));
     }
 
@@ -138,12 +139,17 @@ public class Player implements Entity {
         if (entity instanceof Asteroid || entity instanceof EnemyBullet || entity instanceof EnemyShip) {
             boolean hasInvulnerability = powerupLayer.contains(PowerupType.INVULNERABILITY);
 
-            if (shield == 10) {
-                shield = hasInvulnerability ? 10 : 0;
+            if (hasInvulnerability) {
                 al.getSound(FileSound.PLAYER_HIT_SHIELD).play();
                 return;
             }
-            shield = hasInvulnerability ? 10 : 0;
+
+            if (shield == MAX_SHIELD) {
+                shield = 0;
+                al.getSound(FileSound.PLAYER_HIT_SHIELD).play();
+                return;
+            }
+            shield = 0;
             gameState.kill();
             if (gameState.getLives() == 0) {
                 al.getSound(FileSound.PLAYER_DEATH).play();
@@ -164,6 +170,9 @@ public class Player implements Entity {
     private void onAddPowerup(PowerupType type, GameState gameState) {
         if (type == PowerupType.PLUS_ONE) {
             gameState.addLife();
+        }
+        if (type == PowerupType.INVULNERABILITY) {
+            shield = MAX_SHIELD;
         }
     }
 
