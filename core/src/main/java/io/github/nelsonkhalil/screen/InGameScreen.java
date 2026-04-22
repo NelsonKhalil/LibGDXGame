@@ -73,6 +73,7 @@ public class InGameScreen implements Screen {
 
         asteroidSpawner.spawnUpdate(dt, context);
         enemyWaveLayer.update(dt, context);
+        if (enemyWaveLayer.done()) enemyWaveLayer.loadFromRegistry();
 
         if (gameState.gameOver()) {
             screenHost.setScreen(new GameOverScreen(assetLoader, gameState));
