@@ -33,6 +33,19 @@ public final class EnemyWaveRegistry {
             .build()
     );
 
+    public static Supplier<EnemyWave> WAVE_3 = reg(
+        () -> new EnemyWave.Builder()
+            .addShip(Main.VIEW_WIDTH / 4 * 1, EnemyShipBehaviourFactory.Type.BASIC)
+            .addShip(Main.VIEW_WIDTH / 4 * 3, EnemyShipBehaviourFactory.Type.BASIC)
+            .addDelaySec(5)
+            .addShip(Main.VIEW_WIDTH / 4 * 2, EnemyShipBehaviourFactory.Type.AFRAID)
+            .addDelaySec(3)
+            .addShip(Main.VIEW_WIDTH / 4 * 2, EnemyShipBehaviourFactory.Type.AFRAID)
+            .addDelaySec(3)
+            .addShip(Main.VIEW_WIDTH / 4 * 2, EnemyShipBehaviourFactory.Type.AFRAID)
+            .build()
+    );
+
     private static Supplier<EnemyWave> reg(Supplier<EnemyWave> waveSupplier) {
         registry.add(waveSupplier);
         return waveSupplier;
