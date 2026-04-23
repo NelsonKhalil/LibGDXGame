@@ -21,6 +21,13 @@ public class EnemyShipBehaviourFactory {
         BASIC,
         KAMIKAZE,
         SINE_WAVE,
-        AFRAID
+        AFRAID;
+
+        public static Type fromString(String string) {
+            for (Type type : values()) {
+                if (type.name().equalsIgnoreCase(string)) return type;
+            }
+            return null;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package io.github.nelsonkhalil.enemy_wave;
 
+import com.badlogic.gdx.utils.JsonValue;
 import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.World;
 import io.github.nelsonkhalil.entity.Entity;
@@ -26,7 +27,6 @@ public class EnemyWave {
 
     public void update(float dt, World.WorldContext context) {
         entities.removeIf(Entity::shouldRemove);
-        Main.log(entities.size());
 
         if (currentNode == null || !currentNode.shouldBlock()) {
             currentNode = nodes.poll();
@@ -73,6 +73,43 @@ public class EnemyWave {
 
         public Builder addDelayMilSec(int milliseconds) {
             return addDelay(new EnemyWaveDelayNode(milliseconds));
+        }
+
+        public EnemyWave fromJson(JsonValue wave) {
+            try {
+                for (JsonValue node : wave.iterator()) {
+                    addJsonNode(node);
+                }
+
+                return build();
+            } catch (IllegalArgumentException iae) {
+                throw  new LevelLoadExeption(iae);
+            }
+        }
+
+        private void addJsonNode(JsonValue node) {
+            String type = node.getString("type");
+
+            switch (type.toLowerCase()) {
+                case "ship":
+                    EnemyShipBehaviourFactory.Type behaviour = EnemyShipBehaviourFactory.Type.fromString(node.getString("behaviour"));
+                    if (behaviour == null) return;
+                    float x = parseLocationX(node.get("location"));
+                    addShip(x, behaviour);
+                    break;
+                case "wait":
+                    addDelayMilSec(node.getInt("duration"));
+                    break;
+            }
+        }
+
+        private float parseLocationX(JsonValue location) {
+            float loc = Main.VIEW_WIDTH;
+
+            if (location.has("div")) loc /= location.getFloat("div");
+            if (location.has("mul")) loc *= location.getFloat("mul");
+
+            return loc;
         }
 
         public EnemyWave build() {

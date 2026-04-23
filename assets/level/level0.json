@@ -1,0 +1,35 @@
+{
+  "id": 0,
+  "name": "A first introduction",
+  "difficulty_out_of_ten": 1,
+  "waves": [
+    [
+      {
+        "type": "ship",
+        "behaviour": "afraid",
+        "location": {"div": 2, "mul": 1}
+      }
+    ],
+    [
+      {
+        "type": "ship",
+        "behaviour": "kamikaze",
+        "location": {"div": 5, "mul": 1}
+      },
+      {
+        "type": "ship",
+        "behaviour": "kamikaze",
+        "location": {"div": 5, "mul": 4}
+      },
+      {
+        "type": "wait",
+        "duration": 8000
+      },
+      {
+        "type": "ship",
+        "behaviour": "afraid",
+        "location": {"div": 2, "mul": 1}
+      }
+    ]
+  ]
+}

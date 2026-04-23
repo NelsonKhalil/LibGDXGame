@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import io.github.nelsonkhalil.Main;
 import io.github.nelsonkhalil.World;
 import io.github.nelsonkhalil.assetmanager.AssetLoader;
-import io.github.nelsonkhalil.enemy_wave.EnemyWaveLayer;
+import io.github.nelsonkhalil.enemy_wave.EnemyLevelLayer;
 import io.github.nelsonkhalil.entity.entity_spawner.AsteroidSpawner;
 import io.github.nelsonkhalil.entity.player.Player;
 import io.github.nelsonkhalil.render.Background;
@@ -33,7 +33,7 @@ public class InGameScreen implements Screen {
     private final GameState gameState;
 
     private AsteroidSpawner asteroidSpawner;
-    private EnemyWaveLayer enemyWaveLayer;
+    private EnemyLevelLayer levelLayer;
 
     private final AssetLoader assetLoader;
 
@@ -47,6 +47,10 @@ public class InGameScreen implements Screen {
         gameState = new GameState();
         world = new World(assetLoader, gameState);
 
+        levelLayer = new EnemyLevelLayer();
+
+        levelLayer.loadFromJson();
+
         startGame();
 
         scoreDisplay = new NumberDisplay(new Vector2(Main.VIEW_WIDTH - 30, Main.VIEW_HEIGHT - 40), assetLoader);
@@ -56,9 +60,6 @@ public class InGameScreen implements Screen {
 
     private void startGame() {
         asteroidSpawner = new AsteroidSpawner();
-
-        enemyWaveLayer = new EnemyWaveLayer();
-        enemyWaveLayer.loadFromRegistry();
 
         world.clear();
         gameState.reset();
@@ -72,8 +73,6 @@ public class InGameScreen implements Screen {
         world.update(dt, context);
 
         asteroidSpawner.spawnUpdate(dt, context);
-        enemyWaveLayer.update(dt, context);
-        if (enemyWaveLayer.done()) enemyWaveLayer.loadFromRegistry();
 
         if (gameState.gameOver()) {
             screenHost.setScreen(new GameOverScreen(assetLoader, gameState));
