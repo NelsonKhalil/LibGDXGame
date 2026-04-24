@@ -7,27 +7,29 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.SerializationException;
 import io.github.nelsonkhalil.World;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EnemyLevelLayer {
-    private final List<Supplier<EnemyLevel>> levels;
+    private final Map<Integer, EnemyLevelPrototype> levelPrototypes;
     private EnemyLevel currentEnemyLevel;
+    private int currentLevelIndex;
 
     public EnemyLevelLayer() {
-        levels = new ArrayList<>();
+        levelPrototypes = new HashMap<>();
         currentEnemyLevel = null;
+        currentLevelIndex = -1;
     }
 
-    public void addLevel(Supplier<EnemyLevel> level) {
-        levels.add(level);
+    public void addLevel(EnemyLevel level) {
+        levelPrototypes.put(level.id, new EnemyLevelPrototype(level));
     }
 
-    public boolean setLevel(int index) {
-        if (index < 0) return false;
-        if (index > levels.size() - 1) return false;
-        currentEnemyLevel = levels.get(index).get();
+    public boolean setLevel(int id) {
+        if (id < 0) return false;
+        if (!levelPrototypes.containsKey(id)) return false;
+        currentEnemyLevel = levelPrototypes.get(id).get();
+        currentLevelIndex = id;
         return true;
     }
 
@@ -35,6 +37,12 @@ public class EnemyLevelLayer {
         if (currentEnemyLevel == null) return;
         currentEnemyLevel.update(dt, context);
         if (currentEnemyLevel.done()) currentEnemyLevel = null;
+    }
+
+    public void nextLevel() {
+        if (currentLevelIndex == -1) return;
+        currentLevelIndex++;
+        if (!setLevel(currentLevelIndex)) currentLevelIndex--;
     }
 
     public boolean done() {
@@ -60,6 +68,6 @@ public class EnemyLevelLayer {
         }
 
         EnemyLevel level = new EnemyLevel.Builder().fromJson(root);
-        addLevel(() -> level); //TODO: USE PROTOTYPE
+        addLevel(level);
     }
 }

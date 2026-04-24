@@ -48,7 +48,6 @@ public class InGameScreen implements Screen {
         world = new World(assetLoader, gameState);
 
         levelLayer = new EnemyLevelLayer();
-
         levelLayer.loadFromJson();
 
         startGame();
@@ -64,6 +63,7 @@ public class InGameScreen implements Screen {
         world.clear();
         gameState.reset();
         player = world.createPlayer();
+        levelLayer.setLevel(0);
     }
 
     @Override
@@ -73,6 +73,8 @@ public class InGameScreen implements Screen {
         world.update(dt, context);
 
         asteroidSpawner.spawnUpdate(dt, context);
+        levelLayer.update(dt, context);
+        if (levelLayer.done()) levelLayer.nextLevel();
 
         if (gameState.gameOver()) {
             screenHost.setScreen(new GameOverScreen(assetLoader, gameState));

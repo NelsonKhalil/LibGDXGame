@@ -30,8 +30,16 @@ public class EnemyLevel {
         if (currentWave.hasEnded()) currentWave = null;
     }
 
+    public Queue<EnemyWave> getWaves() {
+        return new ArrayDeque<>(waves);
+    }
+
+    public EnemyLevel(EnemyLevel enemyLevel) {
+        this(enemyLevel.id, enemyLevel.name, enemyLevel.difficulty, enemyLevel.getWaves());
+    }
+
     public boolean done() {
-        return waves.isEmpty();
+        return waves.isEmpty() && currentWave == null;
     }
 
     public static class Builder {
@@ -67,4 +75,5 @@ public class EnemyLevel {
             return new EnemyLevel(id, name, difficulty, waves);
         }
     }
+
 }

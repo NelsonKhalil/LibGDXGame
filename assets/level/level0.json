@@ -23,7 +23,7 @@
       },
       {
         "type": "wait",
-        "duration": 8000
+        "duration": 5000
       },
       {
         "type": "ship",
